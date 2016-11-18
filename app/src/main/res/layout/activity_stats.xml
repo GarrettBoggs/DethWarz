@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next Cover?"
-        android:id="@+id/button"
+        android:id="@+id/nextButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -77,37 +77,27 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Goodreads Ranking"
         android:id="@+id/textView5"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/nextButton"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Covers similar to"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/percentText"
-        android:layout_alignLeft="@+id/ratingBar"
-        android:layout_alignStart="@+id/ratingBar"
-        android:layout_marginTop="29dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/similarCovers"
-        android:layout_below="@+id/textView6"
         android:layout_alignLeft="@+id/ratingBar"
         android:layout_alignStart="@+id/ratingBar"
-        android:layout_above="@+id/ratingBar" />
+        android:layout_above="@+id/ratingBar"
+        android:layout_below="@+id/bookNameText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="bookname"
-        android:id="@+id/bookName"
-        android:layout_alignTop="@+id/textView6"
-        android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:id="@+id/bookNameText"
+        android:layout_below="@+id/percentText"
+        android:layout_alignLeft="@+id/similarCovers"
+        android:layout_alignStart="@+id/similarCovers"
+        android:layout_marginTop="45dp" />
 
 </RelativeLayout>

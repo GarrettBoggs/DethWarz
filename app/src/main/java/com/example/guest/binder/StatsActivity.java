@@ -3,17 +3,25 @@ package com.example.guest.binder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class StatsActivity extends AppCompatActivity {
+public class StatsActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.verdictText) TextView mVerdictText;
     @Bind(R.id.similarCovers) ListView mSimilarCovers;
+    @Bind(R.id.nextButton) Button mNextButton;
+    @Bind(R.id.progressBar) ProgressBar mRatingBar;
+    @Bind(R.id.percentText) TextView mPercentText;
+    @Bind(R.id.bookNameText) TextView mBookNameText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +30,32 @@ public class StatsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String verdict = intent.getStringExtra("verdict");
+        String bookName = intent.getStringExtra("bookName");
         String[] books = intent.getStringArrayExtra("books");
+        Integer agreementVal = intent.getIntExtra("agreementVal", 0);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
         mSimilarCovers.setAdapter(adapter);
 
         mVerdictText.setText(verdict);
+        mBookNameText.setText("Covers Similar to " + bookName);
+        mPercentText.setText(String.valueOf(agreementVal));
+
+        mNextButton.setOnClickListener(this);
+
+        mRatingBar.setProgress(agreementVal);
+
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(StatsActivity.this, CoverActivity.class);
+
+        if (v == mNextButton) {
+            startActivity(intent);
+        }
+
+
+    }
+
 }

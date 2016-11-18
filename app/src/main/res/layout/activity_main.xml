@@ -63,9 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:hint="password"
         android:ems="10"
         android:id="@+id/passwordText"
         android:layout_below="@+id/usernameText"
-        android:layout_alignLeft="@+id/usernameText"
-        android:layout_alignStart="@+id/usernameText" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
