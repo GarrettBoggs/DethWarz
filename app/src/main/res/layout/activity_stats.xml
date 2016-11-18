@@ -17,6 +17,7 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="80"
+        android:progressTint="@color/primary_dark"
         android:layout_below="@+id/verdictText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -57,6 +58,7 @@
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:progressTint="@color/primary_dark"
         android:id="@+id/ratingBar"
         android:numStars="5"
         android:rating="4"

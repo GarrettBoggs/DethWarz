@@ -13,7 +13,8 @@
         android:src="@drawable/eragoncover"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:scaleType="centerCrop" />
 
     <Button
         android:layout_width="wrap_content"
