@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -13,10 +17,14 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     @Bind(R.id.coolButton) Button mCoolButton;
     @Bind(R.id.lameButton) Button mLameButton;
+    @Bind(R.id.bookCover) ImageView mBookCover;
 
-    private String[] books = new String[] {"Eldest", "The Hobbit", "The Lightning Theif", "Dragon Rider"};
+    private String[] books = new String[] {"Eldest", "The Hobbit", "The Lightning Thief", "Dragon Rider"};
     private int agreementVal = 0;
     private String bookName = "";
+
+    Random rn = new Random();
+    private int randomNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,23 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mCoolButton.setOnClickListener(this);
         mLameButton.setOnClickListener(this);
 
-        //In future, bookName will be selected from API
-        bookName = "Eragon";
+        randomNum = rn.nextInt(2);
+
+        //In future, bookCover Image, Name, and similar books will be randomly selected from API
+
+        // All of this logic is subject to change.
+        if(randomNum == 0) {
+            mBookCover.setImageResource(R.drawable.eragoncover);
+            bookName = "Eragon";
+
+        } else{
+            mBookCover.setImageResource(R.drawable.hungergamescover);
+            bookName = "The Hunger Games";
+            String[] newBooks = new String[] {"Divergent", "Mockingjay", "Gregor the Overlander", "The Maze Runner"};
+            for(int i = 0 ; i < books.length; i++ ){
+                books[i] = newBooks[i];
+            }
+        }
     }
 
     @Override
@@ -43,6 +66,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("verdict", verdict);
             intent.putExtra("agreementVal", agreementVal);
             startActivity(intent);
+            Toast.makeText(CoverActivity.this, bookName + "'s cover is " + verdict + "!", Toast.LENGTH_SHORT).show();
         }
 
         if(v == mLameButton){
@@ -51,6 +75,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("verdict", verdict);
             intent.putExtra("agreementVal", agreementVal);
             startActivity(intent);
+            Toast.makeText(CoverActivity.this, bookName + "'s cover is " + verdict + "!", Toast.LENGTH_SHORT).show();
         }
+
     }
 }

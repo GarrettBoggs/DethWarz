@@ -9,8 +9,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        android:src="@drawable/eragoncover"
+        android:id="@+id/bookCover"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -21,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="Cool"
         android:id="@+id/coolButton"
-        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignBottom="@+id/bookCover"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="#28871e" />
@@ -31,8 +30,8 @@
         android:layout_height="wrap_content"
         android:text="Lame"
         android:id="@+id/lameButton"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
+        android:layout_alignBottom="@+id/bookCover"
+        android:layout_alignLeft="@+id/bookCover"
+        android:layout_alignStart="@+id/bookCover"
         android:background="#a20808" />
 </RelativeLayout>
