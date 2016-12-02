@@ -51,9 +51,11 @@ public class BombService {
             {
                 JSONObject totalJSON = new JSONObject(jsonData);
                 JSONObject bookJSON = totalJSON.getJSONObject("results");
+                JSONObject imageJSON = bookJSON.getJSONObject("image");
+
 
                 String name = bookJSON.getString("name");
-                String super_url = bookJSON.getString("name");
+                String super_url = imageJSON.getString("super_url");
 
                 Character character = new Character(name , super_url);
 

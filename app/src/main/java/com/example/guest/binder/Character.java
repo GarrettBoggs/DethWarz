@@ -1,5 +1,7 @@
 package com.example.guest.binder;
 
+import android.util.Log;
+
 /**
  * Created by Guest on 12/2/16.
  */
@@ -18,6 +20,7 @@ public class Character {
     }
 
     public String getPicture(){
+
         return mPicture;
     }
 }

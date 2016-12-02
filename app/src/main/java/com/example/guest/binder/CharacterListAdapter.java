@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -56,7 +58,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
         public void bindCharacter(Character character) {
             mCharacterTextView.setText(character.getName());
-
+            Picasso.with(mContext).load(character.getPicture()).into(mCharacterImageView);
         }
     }
 }
