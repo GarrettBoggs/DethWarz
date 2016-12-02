@@ -3,15 +3,20 @@ package com.example.guest.binder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +57,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 books[i] = newBooks[i];
             }
         }
+
+        getBooks("Eragon");
     }
 
     @Override
@@ -78,5 +85,26 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(CoverActivity.this, bookName + "'s cover is " + verdict + "!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void getBooks(String keyword){
+        final BombService amazonService = new BombService();
+        amazonService.findBooks(keyword, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e){
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    Log.v("get result" , jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
