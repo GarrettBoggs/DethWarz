@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import butterknife.Bind;
@@ -23,6 +24,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.coolButton) Button mCoolButton;
     @Bind(R.id.lameButton) Button mLameButton;
     @Bind(R.id.bookCover) ImageView mBookCover;
+
+    public ArrayList<Character> mCharacters = new ArrayList<>();
 
     private String[] books = new String[] {"Eldest", "The Hobbit", "The Lightning Thief", "Dragon Rider"};
     private int agreementVal = 0;
@@ -98,12 +101,16 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v("get result" , jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                        mCharacters = amazonService.proccessResults(response);
+
+                        Log.v("Test this" , mCharacters.get(0).getName());
+                CoverActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+
+                });
             }
         });
     }
