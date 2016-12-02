@@ -29,7 +29,9 @@ public class BombService {
 
         String id = "3005-34167" + "/?";
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BOMB_BASE_URL).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BOMB_BASE_URL + id).newBuilder();
+        urlBuilder.addQueryParameter("api_key", Constants.BOMB_KEY);
+        urlBuilder.addQueryParameter("format", "json");
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
@@ -51,8 +53,9 @@ public class BombService {
                 JSONObject bookJSON = totalJSON.getJSONObject("results");
 
                 String name = bookJSON.getString("name");
+                String super_url = bookJSON.getString("name");
 
-                Character character = new Character(name);
+                Character character = new Character(name , super_url);
 
                 characters.add(character);
             }

@@ -6,32 +6,28 @@
 
     tools:context="com.example.guest.binder.CoverActivity">
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/bookCover"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:scaleType="centerCrop" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cool"
         android:id="@+id/coolButton"
-        android:layout_alignBottom="@+id/bookCover"
+        android:background="#28871e"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#28871e" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lame"
         android:id="@+id/lameButton"
-        android:layout_alignBottom="@+id/bookCover"
-        android:layout_alignLeft="@+id/bookCover"
-        android:layout_alignStart="@+id/bookCover"
-        android:background="#a20808" />
+        android:background="#a20808"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

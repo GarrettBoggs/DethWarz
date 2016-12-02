@@ -3,6 +3,8 @@ package com.example.guest.binder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,9 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     @Bind(R.id.coolButton) Button mCoolButton;
     @Bind(R.id.lameButton) Button mLameButton;
-    @Bind(R.id.bookCover) ImageView mBookCover;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+
+    private CharacterListAdapter mAdapter;
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
@@ -48,18 +52,18 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         //In future, bookCover Image, Name, and similar books will be randomly selected from API
 
         // All of this logic is subject to change.
-        if(randomNum == 0) {
-            mBookCover.setImageResource(R.drawable.eragoncover);
-            bookName = "Eragon";
-
-        } else{
-            mBookCover.setImageResource(R.drawable.hungergamescover);
-            bookName = "The Hunger Games";
-            String[] newBooks = new String[] {"Divergent", "Mockingjay", "Gregor the Overlander", "The Maze Runner"};
-            for(int i = 0 ; i < books.length; i++ ){
-                books[i] = newBooks[i];
-            }
-        }
+//        if(randomNum == 0) {
+//            mBookCover.setImageResource(R.drawable.eragoncover);
+//            bookName = "Eragon";
+//
+//        } else{
+//            mBookCover.setImageResource(R.drawable.hungergamescover);
+//            bookName = "The Hunger Games";
+//            String[] newBooks = new String[] {"Divergent", "Mockingjay", "Gregor the Overlander", "The Maze Runner"};
+//            for(int i = 0 ; i < books.length; i++ ){
+//                books[i] = newBooks[i];
+//            }
+//        }
 
         getBooks("Eragon");
     }
@@ -107,7 +111,12 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 CoverActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        mAdapter = new CharacterListAdapter(getApplicationContext(), mCharacters);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(CoverActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
 
                 });
