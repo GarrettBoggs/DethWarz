@@ -21,6 +21,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.progressBar) ProgressBar mRatingBar;
     @Bind(R.id.percentText) TextView mPercentText;
     @Bind(R.id.bookNameText) TextView mBookNameText;
+    @Bind(R.id.contactClick) TextView mContactClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         mPercentText.setText(String.valueOf(agreementVal));
 
         mNextButton.setOnClickListener(this);
+        mContactClick.setOnClickListener(this);
 
         mRatingBar.setProgress(agreementVal);
 
@@ -49,9 +51,14 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(StatsActivity.this, CoverActivity.class);
 
         if (v == mNextButton) {
+            Intent intent = new Intent(StatsActivity.this, CoverActivity.class);
+            startActivity(intent);
+        }
+
+        else if (v == mContactClick) {
+            Intent intent = new Intent(StatsActivity.this, ContactActivity.class);
             startActivity(intent);
         }
 

@@ -47,24 +47,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mCoolButton.setOnClickListener(this);
         mLameButton.setOnClickListener(this);
 
-        randomNum = rn.nextInt(2);
-
-        //In future, bookCover Image, Name, and similar books will be randomly selected from API
-
-        // All of this logic is subject to change.
-//        if(randomNum == 0) {
-//            mBookCover.setImageResource(R.drawable.eragoncover);
-//            bookName = "Eragon";
-//
-//        } else{
-//            mBookCover.setImageResource(R.drawable.hungergamescover);
-//            bookName = "The Hunger Games";
-//            String[] newBooks = new String[] {"Divergent", "Mockingjay", "Gregor the Overlander", "The Maze Runner"};
-//            for(int i = 0 ; i < books.length; i++ ){
-//                books[i] = newBooks[i];
-//            }
-//        }
-
         getBooks("Eragon");
     }
 

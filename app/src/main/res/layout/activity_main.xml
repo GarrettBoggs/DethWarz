@@ -50,4 +50,5 @@
         android:id="@+id/passwordText"
         android:layout_below="@+id/usernameText"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

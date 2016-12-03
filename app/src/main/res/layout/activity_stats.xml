@@ -105,4 +105,14 @@
         android:layout_alignStart="@+id/similarCovers"
         android:layout_marginTop="45dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Contact Us"
+        android:id="@+id/contactClick"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/textView5"
+        android:layout_toStartOf="@+id/textView5" />
+
 </RelativeLayout>

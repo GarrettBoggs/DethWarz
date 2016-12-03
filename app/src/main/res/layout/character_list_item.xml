@@ -4,8 +4,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
         android:id="@+id/characterImageView"
         android:src="@drawable/eragoncover"
         android:scaleType="centerCrop"/>
@@ -17,6 +17,6 @@
             android:textSize="25dp"
             android:textStyle="bold"
             android:text="Character Name"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary" />
 
   </LinearLayout>
