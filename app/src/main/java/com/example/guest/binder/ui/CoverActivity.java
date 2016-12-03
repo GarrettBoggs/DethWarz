@@ -37,11 +37,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
-    private String winnerName = "";
-
-    Random rn = new Random();
-    private int randomNum = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

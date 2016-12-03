@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Description"
             android:id="@+id/categoryTextView"
-            android:layout_below="@+id/characterImag"
+            android:layout_below="@+id/characterDescriptionTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textStyle="italic"/>

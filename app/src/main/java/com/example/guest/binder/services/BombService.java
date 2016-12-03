@@ -26,13 +26,10 @@ import okhttp3.Response;
  */
 public class BombService {
 
-    Random rn = new Random();
-    int guess = rn.nextInt(6);
-
     public static void findBooks(Callback callback){
-        String[] allCharacters = {"3005-34077" , "3005-34048" , "3005-33968", "3005-33901", "3005-693", "3005-2972"};
+        String[] allCharacters = { "3005-34048" , "3005-33968", "3005-33901", "3005-693", "3005-2972" , "3005-73", "3005-5", "3005-13", "3005-24" , "3005-69","3005-22", "3005-7", "3005-10", "3005-99", "3005-18", "3005-121", "3005-63" };
         Random rn = new Random();
-        int guess = rn.nextInt(6);
+        int guess = rn.nextInt(17);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
@@ -56,7 +53,7 @@ public class BombService {
 
     public Character proccessResults(Response response) {
 
-        Character character = new Character("blank", "blank");
+        Character character = new Character("blank", "blank", "blank");
 
         try{
             String jsonData = response.body().string();
@@ -68,9 +65,10 @@ public class BombService {
 
 
                 String name = bookJSON.getString("name");
+                String desc = bookJSON.getString("deck");
                 String super_url = imageJSON.getString("small_url");
 
-                character = new Character(name , super_url);
+                character = new Character(name , super_url, desc);
 
             }
         } catch (IOException e) {

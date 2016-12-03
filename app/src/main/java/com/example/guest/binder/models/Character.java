@@ -7,12 +7,13 @@ import android.util.Log;
  */
 public class Character {
     public String mName;
+    public String mDescription;
     public String mPicture;
 
-    public Character(String name, String picture){
+    public Character(String name, String picture, String description){
         this.mName = name;
         this.mPicture = picture;
-
+        this.mDescription = description;
     }
 
     public String getName(){
@@ -20,7 +21,10 @@ public class Character {
     }
 
     public String getPicture(){
-
         return mPicture;
+    }
+
+    public String getDescription(){
+        return mDescription;
     }
 }
