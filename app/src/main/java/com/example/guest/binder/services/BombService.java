@@ -29,7 +29,7 @@ public class BombService {
     Random rn = new Random();
     int guess = rn.nextInt(6);
 
-    public static void findBooks(String keyword , Callback callback){
+    public static void findBooks(Callback callback){
         String[] allCharacters = {"3005-34077" , "3005-34048" , "3005-33968", "3005-33901", "3005-693", "3005-2972"};
         Random rn = new Random();
         int guess = rn.nextInt(6);

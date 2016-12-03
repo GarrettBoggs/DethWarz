@@ -17,12 +17,9 @@ import butterknife.ButterKnife;
 
 public class StatsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.verdictText) TextView mVerdictText;
-    @Bind(R.id.similarCovers) ListView mSimilarCovers;
+    @Bind(R.id.winnerText) TextView mWinnerText;
+    @Bind(R.id.loserText) TextView mLoserText;
     @Bind(R.id.nextButton) Button mNextButton;
-    @Bind(R.id.progressBar) ProgressBar mRatingBar;
-    @Bind(R.id.percentText) TextView mPercentText;
-    @Bind(R.id.bookNameText) TextView mBookNameText;
     @Bind(R.id.contactClick) TextView mContactClick;
 
     @Override
@@ -32,22 +29,14 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String verdict = intent.getStringExtra("verdict");
-        String bookName = intent.getStringExtra("bookName");
-        String[] books = intent.getStringArrayExtra("books");
-        Integer agreementVal = intent.getIntExtra("agreementVal", 0);
+        String winner = intent.getStringExtra("winner");
+        String loser = intent.getStringExtra("loser");
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
-        mSimilarCovers.setAdapter(adapter);
-
-        mVerdictText.setText(verdict);
-        mBookNameText.setText("Covers Similar to " + bookName);
-        mPercentText.setText(String.valueOf(agreementVal));
+        mWinnerText.setText(winner);
+        mLoserText.setText(loser);
 
         mNextButton.setOnClickListener(this);
         mContactClick.setOnClickListener(this);
-
-        mRatingBar.setProgress(agreementVal);
 
     }
 

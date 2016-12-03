@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"
         android:layout_below="@+id/textView3"
-        android:layout_alignParentStart="false"
-        android:layout_above="@+id/textView6" />
+        android:layout_marginBottom="200dp"/>
 
 
     <TextView
@@ -24,14 +23,33 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Char2"
+        android:id="@+id/characterTwoButton"
+        android:layout_marginBottom="49dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="char1"
+        android:id="@+id/characterOneButton"
+        android:layout_alignTop="@+id/characterTwoButton"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="WHO WINS?"
         android:id="@+id/textView6"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/characterTwoButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="201dp" />
+        android:layout_marginBottom="44dp" />
 
 </RelativeLayout>

@@ -30,14 +30,14 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.characterOneButton) Button mCharacterOneButton;
+    @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
 
     private CharacterListAdapter mAdapter;
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
-    private String[] books = new String[] {"Eldest", "The Hobbit", "The Lightning Thief", "Dragon Rider"};
-    private int agreementVal = 0;
-    private String bookName = "";
+    private String winnerName = "";
 
     Random rn = new Random();
     private int randomNum = 0;
@@ -48,20 +48,33 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
 
-        getBooks("Eragon");
-        getBooks("Eragon");
+        getCharacter();
+        getCharacter();
+
+        mCharacterOneButton.setOnClickListener(this);
+        mCharacterTwoButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v){
         Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
-        intent.putExtra("books", books);
-        intent.putExtra("bookName",bookName);
+
+        if(v == mCharacterOneButton){
+            intent.putExtra("winner", mCharacters.get(0).getName());
+            intent.putExtra("loser", mCharacters.get(1).getName());
+            startActivity(intent);
+        }
+
+        if(v == mCharacterTwoButton){
+            intent.putExtra("winner", mCharacters.get(1).getName());
+            intent.putExtra("loser", mCharacters.get(0).getName());
+            startActivity(intent);
+        }
     }
 
-    private void getBooks(String keyword) {
-        final BombService amazonService = new BombService();
-        amazonService.findBooks(keyword, new Callback() {
+    private void getCharacter() {
+        final BombService bombService = new BombService();
+        bombService.findBooks(new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -70,7 +83,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mCharacters.add(amazonService.proccessResults(response));
+                mCharacters.add(bombService.proccessResults(response));
 
                 CoverActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -81,6 +94,11 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                                     new LinearLayoutManager(CoverActivity.this);
                             mRecyclerView.setLayoutManager(layoutManager);
                             mRecyclerView.setHasFixedSize(false);
+
+                        mCharacterOneButton.setText(mCharacters.get(0).getName());
+                        if(mCharacters.size() > 1){
+                            mCharacterTwoButton.setText(mCharacters.get(1).getName());
+                        }
 
                     }
 

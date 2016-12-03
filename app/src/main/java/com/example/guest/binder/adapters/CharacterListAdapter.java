@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Guest on 12/2/16.
  */
-public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder> {
+public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder>{
     private ArrayList<Character> mCharacters = new ArrayList<>();
     private Context mContext;
 
@@ -57,6 +57,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         super(itemView);
         ButterKnife.bind(this, itemView);
         mContext = itemView.getContext();
+
     }
 
         public void bindCharacter(Character character) {
