@@ -48,6 +48,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
         mCharacterOneButton.setOnClickListener(this);
         mCharacterTwoButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -69,7 +70,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     private void getCharacter() {
         final BombService bombService = new BombService();
-        bombService.findBooks(new Callback() {
+        bombService.findCharacter(new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -91,8 +92,18 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                             mRecyclerView.setHasFixedSize(false);
 
                         mCharacterOneButton.setText(mCharacters.get(0).getName());
+
                         if(mCharacters.size() > 1){
-                            mCharacterTwoButton.setText(mCharacters.get(1).getName());
+
+                            if(mCharacters.get(0).getName().equals(mCharacters.get(1).getName()) ) {
+                                mCharacters.remove(1);
+                                getCharacter();
+                            }
+
+                            if(mCharacters.size() > 1){
+                                mCharacterTwoButton.setText(mCharacters.get(1).getName());
+                            }
+
                         }
 
                     }

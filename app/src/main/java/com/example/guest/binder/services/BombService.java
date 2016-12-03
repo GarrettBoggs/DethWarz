@@ -26,16 +26,15 @@ import okhttp3.Response;
  */
 public class BombService {
 
-    public static void findBooks(Callback callback){
-        String[] allCharacters = { "3005-34048" , "3005-33968", "3005-33901", "3005-693", "3005-2972" , "3005-73", "3005-5", "3005-13", "3005-24" , "3005-69","3005-22", "3005-7", "3005-10", "3005-99", "3005-18", "3005-121", "3005-63" };
+    static public String[] allCharacters = {"3005-1373" , "3005-6445" , "3005-165" , "3005-38" , "3005-65" , "3005-66" , "3005-86" , "3005-45" , "3005-34048" , "3005-33968", "3005-33901", "3005-693", "3005-2972" , "3005-73", "3005-5", "3005-13", "3005-24" , "3005-69","3005-22", "3005-7", "3005-10", "3005-99", "3005-18", "3005-121", "3005-63", "3005-170" , "3005-145" , "3005-162", "3005-132", "3005-191", "3005-195" , "3005-177" , "3005-247" , "3005-34127", "3005-34117" , "3005-34111" , "3005-90" , "3005-47" , "3005-78", "3005-83"};
+
+    public static void findCharacter(Callback callback){
         Random rn = new Random();
-        int guess = rn.nextInt(17);
+        int guess = rn.nextInt(allCharacters.length - 1);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-
-        String id = allCharacters[guess] + "/?";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BOMB_BASE_URL + allCharacters[guess]).newBuilder();
         urlBuilder.addQueryParameter("api_key", Constants.BOMB_KEY);

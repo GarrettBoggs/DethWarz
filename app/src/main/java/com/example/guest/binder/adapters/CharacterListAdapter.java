@@ -48,8 +48,10 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
     }
 
     public class CharacterViewHolder extends RecyclerView.ViewHolder{
-        @Bind(R.id.characterImageView) ImageView mCharacterImageView;
         @Bind(R.id.characterNameTextView) TextView mCharacterTextView;
+        @Bind(R.id.descriptionTextView) TextView mCharacterDescTextView;
+        @Bind(R.id.characterImageView) ImageView mCharacterImageView;
+
 
         private Context mContext;
 
@@ -62,6 +64,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
         public void bindCharacter(Character character) {
             mCharacterTextView.setText(character.getName());
+            mCharacterDescTextView.setText(character.getDescription());
             Picasso.with(mContext).load(character.getPicture()).into(mCharacterImageView);
         }
     }

@@ -9,7 +9,7 @@
         android:layout_height="200dp"
         android:id="@+id/characterImageView"
         android:src="@drawable/eragoncover"
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitCenter"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -31,8 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
-            android:id="@+id/categoryTextView"
-            android:layout_below="@+id/characterDescriptionTextView"
+            android:id="@+id/descriptionTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textStyle="italic"/>
