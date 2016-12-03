@@ -30,7 +30,7 @@ You will need Android Studios installed on your computer. (Preferably 2.1 or lat
     **User can Log in**
 
     * Example input: UserName: Bob Password: Bob
-    * Example output: User is logged into Binder
+    * Example output: User is logged into DethBattle
 
     **User can select the winner of a Dethbattle**
 
