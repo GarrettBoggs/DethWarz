@@ -1,5 +1,9 @@
-# Binder
-App that allows the user to judge a book by the cover!
+# DethBattle
+App that allows the user to pick the victor of a DethBattle!
+
+Now we may truly know who would win in a fight between Pikuchu and Batman!
+
+Who will be the strongest hero?
 
 ### By Garrett Boggs
 
@@ -7,9 +11,9 @@ This README outlines the details of collaborating on this Android application.
 
 ## Description
 
-Binder is a gamified book cover rating system.
+DethBattle is a gamified rating of the battle abilities of well known characters.
 
-Essentially, the App will allow the user to judge a book by the cover.
+It allow the user to pick the winner of randomly generated fights.
 
 ## Prerequisites
 
@@ -28,10 +32,10 @@ You will need Android Studios installed on your computer. (Preferably 2.1 or lat
     * Example input: UserName: Bob Password: Bob
     * Example output: User is logged into Binder
 
-    **User can like/dislike a book's cover**
+    **User can select the winner of a Dethbattle**
 
-    * Example input: User clicks the like button
-    * Example output: User is taken to a confirmation page with additional statistics
+    * Example input: User is ask who would win in a fight of Batman vs Pickachu
+    * Example output: User will select either Batman or Pickachu to win the fight
   
 
 ## Licensing
