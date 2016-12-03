@@ -1,4 +1,4 @@
-package com.example.guest.binder;
+package com.example.guest.binder.models;
 
 import android.util.Log;
 

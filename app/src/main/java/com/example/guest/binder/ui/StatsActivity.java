@@ -1,4 +1,4 @@
-package com.example.guest.binder;
+package com.example.guest.binder.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.guest.binder.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.example.guest.binder;
+package com.example.guest.binder.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.guest.binder.CharacterListAdapter;
+import com.example.guest.binder.R;
+import com.example.guest.binder.services.BombService;
+import com.example.guest.binder.models.Character;
 
 import java.io.IOException;
 import java.util.ArrayList;

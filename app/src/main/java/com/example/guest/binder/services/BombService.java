@@ -1,5 +1,8 @@
-package com.example.guest.binder;
+package com.example.guest.binder.services;
 
+
+import com.example.guest.binder.Constants;
+import com.example.guest.binder.models.Character;
 
 import org.json.JSONException;
 import org.json.JSONObject;

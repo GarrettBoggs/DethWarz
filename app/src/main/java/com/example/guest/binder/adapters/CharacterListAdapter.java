@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import com.example.guest.binder.models.Character;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
