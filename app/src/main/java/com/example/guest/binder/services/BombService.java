@@ -51,10 +51,12 @@ public class BombService {
 
         Call call = client.newCall(request);
         call.enqueue(callback);
+
     }
 
-    public ArrayList<Character> proccessResults(Response response) {
-        ArrayList<Character> characters = new ArrayList<>();
+    public Character proccessResults(Response response) {
+
+        Character character = new Character("blank", "blank");
 
         try{
             String jsonData = response.body().string();
@@ -66,11 +68,10 @@ public class BombService {
 
 
                 String name = bookJSON.getString("name");
-                String super_url = imageJSON.getString("super_url");
+                String super_url = imageJSON.getString("small_url");
 
-                Character character = new Character(name , super_url);
+                character = new Character(name , super_url);
 
-                characters.add(character);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,7 +79,7 @@ public class BombService {
             e.printStackTrace();
         }
 
-        return characters;
+        return character;
     }
 
 }

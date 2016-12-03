@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.guest.binder.CharacterListAdapter;
+import com.example.guest.binder.adapters.CharacterListAdapter;
 import com.example.guest.binder.R;
 import com.example.guest.binder.services.BombService;
 import com.example.guest.binder.models.Character;
@@ -28,8 +28,7 @@ import okhttp3.Response;
 
 public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.coolButton) Button mCoolButton;
-    @Bind(R.id.lameButton) Button mLameButton;
+
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     private CharacterListAdapter mAdapter;
@@ -49,9 +48,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
 
-        mCoolButton.setOnClickListener(this);
-        mLameButton.setOnClickListener(this);
-
+        getBooks("Eragon");
         getBooks("Eragon");
     }
 
@@ -60,54 +57,36 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
         intent.putExtra("books", books);
         intent.putExtra("bookName",bookName);
-
-        if(v == mCoolButton){
-            agreementVal = 80;
-            String verdict = "COOL";
-            intent.putExtra("verdict", verdict);
-            intent.putExtra("agreementVal", agreementVal);
-            startActivity(intent);
-            Toast.makeText(CoverActivity.this, bookName + "'s cover is " + verdict + "!", Toast.LENGTH_SHORT).show();
-        }
-
-        if(v == mLameButton){
-            agreementVal = 20;
-            String verdict = "LAME";
-            intent.putExtra("verdict", verdict);
-            intent.putExtra("agreementVal", agreementVal);
-            startActivity(intent);
-            Toast.makeText(CoverActivity.this, bookName + "'s cover is " + verdict + "!", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
-    private void getBooks(String keyword){
+    private void getBooks(String keyword) {
         final BombService amazonService = new BombService();
         amazonService.findBooks(keyword, new Callback() {
 
             @Override
-            public void onFailure(Call call, IOException e){
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                        mCharacters = amazonService.proccessResults(response);
+                mCharacters.add(amazonService.proccessResults(response));
 
-                        Log.v("Test this" , mCharacters.get(0).getName());
                 CoverActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter = new CharacterListAdapter(getApplicationContext(), mCharacters);
-                        mRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager =
-                                new LinearLayoutManager(CoverActivity.this);
-                        mRecyclerView.setLayoutManager(layoutManager);
-                        mRecyclerView.setHasFixedSize(true);
+                            mAdapter = new CharacterListAdapter(getApplicationContext(), mCharacters);
+                            mRecyclerView.setAdapter(mAdapter);
+                            RecyclerView.LayoutManager layoutManager =
+                                    new LinearLayoutManager(CoverActivity.this);
+                            mRecyclerView.setLayoutManager(layoutManager);
+                            mRecyclerView.setHasFixedSize(false);
+
                     }
 
                 });
             }
         });
     }
+
 }
