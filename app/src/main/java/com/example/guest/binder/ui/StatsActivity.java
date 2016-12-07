@@ -21,6 +21,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.loserText) TextView mLoserText;
     @Bind(R.id.nextButton) Button mNextButton;
     @Bind(R.id.contactClick) TextView mContactClick;
+    @Bind(R.id.characterButton) Button mCharacterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
         mNextButton.setOnClickListener(this);
         mContactClick.setOnClickListener(this);
-
+        mCharacterButton.setOnClickListener(this);
     }
 
     @Override
@@ -53,6 +54,10 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         }
 
+        else if (v == mCharacterButton) {
+            Intent intent = new Intent(StatsActivity.this, CharacterActivity.class);
+            startActivity(intent);
+        }
 
     }
 

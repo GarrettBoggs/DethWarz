@@ -28,7 +28,6 @@ import okhttp3.Response;
 
 public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.characterOneButton) Button mCharacterOneButton;
     @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;

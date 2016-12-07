@@ -6,5 +6,8 @@ package com.example.guest.binder;
 public class Constants {
     public static final String BOMB_KEY = BuildConfig.BOMB_KEY;
     public static final String BOMB_BASE_URL = "http://www.giantbomb.com/api/character/";
-    public static final String BOMB_QUERY_PARAMETER = "Keywords";
+
+    public static final String BOMB_BASE_SEARCH_URL = "http://www.giantbomb.com/api/search/?" ;
+
+    public static final String BOMB_QUERY_PARAMETER = "query";
 }

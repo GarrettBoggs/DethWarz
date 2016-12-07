@@ -4,6 +4,7 @@ package com.example.guest.binder.services;
 import com.example.guest.binder.Constants;
 import com.example.guest.binder.models.Character;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,6 +78,58 @@ public class BombService {
         }
 
         return character;
+    }
+
+    public static void findAllCharacters(String name, Callback callback){
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BOMB_BASE_SEARCH_URL).newBuilder();
+        urlBuilder.addQueryParameter("api_key", Constants.BOMB_KEY);
+        urlBuilder.addQueryParameter("format", "json");
+        urlBuilder.addQueryParameter( Constants.BOMB_QUERY_PARAMETER, name);
+        urlBuilder.addQueryParameter("resources", "character");
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+
+    }
+
+    public ArrayList<Character> proccessAllResults(Response response) {
+
+        ArrayList<Character> characters = new ArrayList<>();
+
+        try{
+            String jsonData = response.body().string();
+            if(response.isSuccessful())
+            {
+                JSONObject totalJSON = new JSONObject(jsonData);
+                JSONArray resultsJSON = totalJSON.getJSONArray("results");
+
+                for(int i = 0; i < resultsJSON.length(); i++){
+                    JSONObject characterJSON = resultsJSON.getJSONObject(i);
+                    JSONObject imageJSON = characterJSON.getJSONObject("image");
+                    String name = characterJSON.getString("name");
+                    String desc = characterJSON.getString("deck");
+                    String super_url = imageJSON.getString("small_url");
+                    Character character = new Character(name , super_url, desc);
+                    characters.add(character);
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return characters;
     }
 
 }
