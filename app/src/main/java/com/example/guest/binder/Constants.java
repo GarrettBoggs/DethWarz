@@ -10,4 +10,5 @@ public class Constants {
     public static final String BOMB_BASE_SEARCH_URL = "http://www.giantbomb.com/api/search/?" ;
 
     public static final String BOMB_QUERY_PARAMETER = "query";
+    public static final String PREFERENCES_CHARACTER_KEY = "koopa";
 }
