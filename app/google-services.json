@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1042356963507",
+    "firebase_url": "https://dethbattle-44a6b.firebaseio.com",
+    "project_id": "dethbattle-44a6b",
+    "storage_bucket": "dethbattle-44a6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042356963507:android:f9bbf6f3915c8bc5",
+        "android_client_info": {
+          "package_name": "com.example.guest.binder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042356963507-sncfaa757hnd2q2giccdjicqm04bfn3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guest.binder",
+            "certificate_hash": "C75BFC47ED08D413A3EB89F062E18227494B4EBF"
+          }
+        },
+        {
+          "client_id": "1042356963507-7qkf370p32pqvlojf9u5rnbda0g8q8f3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWB6qOh1y7C2o8BtRgkY5OoDvoPSzWjvc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042356963507-7qkf370p32pqvlojf9u5rnbda0g8q8f3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,4 +11,8 @@ public class Constants {
 
     public static final String BOMB_QUERY_PARAMETER = "query";
     public static final String PREFERENCES_CHARACTER_KEY = "koopa";
+
+    public static final String FIREBASE_CHILD_CHARACTERS = "characters";
+
+    public static final String FIREBASE_CHILD_WINS = "0";
 }

@@ -55,7 +55,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         }
 
         else if (v == mCharacterButton) {
-            Intent intent = new Intent(StatsActivity.this, CharacterActivity.class);
+            Intent intent = new Intent(StatsActivity.this, HistoryActivity.class);
             startActivity(intent);
         }
 
