@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.guest.binder.R;
@@ -21,7 +18,8 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.loserText) TextView mLoserText;
     @Bind(R.id.nextButton) Button mNextButton;
     @Bind(R.id.contactClick) TextView mContactClick;
-    @Bind(R.id.characterButton) Button mCharacterButton;
+    @Bind(R.id.victorButton) Button mVictorButton;
+    @Bind(R.id.characterButton) Button  mCharacterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +37,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         mNextButton.setOnClickListener(this);
         mContactClick.setOnClickListener(this);
         mCharacterButton.setOnClickListener(this);
+        mVictorButton.setOnClickListener(this);
     }
 
     @Override
@@ -55,9 +54,15 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         }
 
         else if (v == mCharacterButton) {
+            Intent intent = new Intent(StatsActivity.this, CharacterActivity.class);
+            startActivity(intent);
+        }
+
+        else if (v == mVictorButton) {
             Intent intent = new Intent(StatsActivity.this, HistoryActivity.class);
             startActivity(intent);
         }
+
 
     }
 

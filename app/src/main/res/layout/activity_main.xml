@@ -14,41 +14,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="DethBattle"
+        android:text="Rules"
         android:id="@+id/textView"
-        android:layout_marginTop="70dp"
+        android:textSize="45dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="45dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="I'm READY!"
         android:id="@+id/loginButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/primary"
         android:layout_marginBottom="32dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="username"
-        android:ems="10"
-        android:id="@+id/usernameText"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="It is your mission to choose which character would win in a fight to the DEATH!"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="password"
-        android:ems="10"
-        android:id="@+id/passwordText"
-        android:layout_below="@+id/usernameText"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Characters can only use established abilities (example: Spiderman can and will shoot webs.)"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Weapons used by characters will be specified in game. (Example Link will have MasterSword, bombs, and boomerang. He can ONLY use those weapons.)"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/textView8"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -22,8 +22,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.loginButton) Button mLoginButton;
-    @Bind(R.id.usernameText) EditText mUsername;
-    @Bind(R.id.passwordText) EditText mPassword;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -56,16 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(MainActivity.this, CoverActivity.class);
 
         if(v == mLoginButton) {
-            String username = mUsername.getText().toString();
-            String password = mPassword.getText().toString();
 
-            if(username.equals("") || password.equals("")){
-                Toast.makeText(MainActivity.this, "Please enter your username and password.", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                startActivity(intent);
-                Toast.makeText(MainActivity.this, "Welcome " + username + "!", Toast.LENGTH_SHORT).show();
-            }
+            startActivity(intent);
 
         }
     }

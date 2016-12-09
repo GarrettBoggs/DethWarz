@@ -16,6 +16,8 @@ import com.example.guest.binder.adapters.CharacterListAdapter;
 import com.example.guest.binder.R;
 import com.example.guest.binder.services.BombService;
 import com.example.guest.binder.models.Character;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +43,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     private CharacterListAdapter mAdapter;
 
     private DatabaseReference mWinsReference;
+
+    public Character mCharacter;
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
@@ -83,14 +87,22 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
 
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        DatabaseReference mWinsReference = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_CHARACTERS)
+                .child(uid);
+
+        DatabaseReference pushRef = mWinsReference.push();
+        String pushId = pushRef.getKey();
+
         if(v == mCharacterOneButton){
 
-            addWinToFirebase("1");
-
-            DatabaseReference mWinsReference = FirebaseDatabase
-                    .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_CHARACTERS);
-            mWinsReference.push().setValue(mCharacters.get(0));
+            mCharacters.get(0).setPushId(pushId);
+            pushRef.setValue( mCharacters.get(0));
 
             intent.putExtra("winner", mCharacters.get(0).getName());
             intent.putExtra("loser", mCharacters.get(1).getName());
@@ -98,6 +110,10 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if(v == mCharacterTwoButton){
+
+            mCharacters.get(1).setPushId(pushId);
+            pushRef.setValue( mCharacters.get(1));
+
             intent.putExtra("winner", mCharacters.get(1).getName());
             intent.putExtra("loser", mCharacters.get(0).getName());
             startActivity(intent);

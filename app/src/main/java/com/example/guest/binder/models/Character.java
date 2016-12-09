@@ -14,6 +14,7 @@ public class Character {
     public String picture;
     public String wins = "0";
     public String losses = "0";
+    private String pushId;
 
     public Character(String name, String picture, String description){
         this.name = name;
@@ -38,4 +39,12 @@ public class Character {
     public String getWins() { return wins; }
 
     public String getLosses() { return losses; }
+
+    public void setPushId(String pushId){
+        this.pushId = pushId;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.guest.binder.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import com.example.guest.binder.R;
 import com.example.guest.binder.adapters.FirebaseCharacterViewHolder;
 import com.example.guest.binder.models.Character;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,7 +36,10 @@ import butterknife.ButterKnife;
             setContentView(R.layout.activity_character);
             ButterKnife.bind(this);
 
-            mCharacterReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_CHARACTERS);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+
+            mCharacterReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_CHARACTERS).child(uid);
             setUpFirebaseAdapter();
         }
 
@@ -58,5 +64,6 @@ import butterknife.ButterKnife;
             super.onDestroy();
             mFirebaseAdapter.cleanup();
         }
+
     }
 
