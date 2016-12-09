@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Characters can only use established abilities (example: Spiderman can and will shoot webs.)"
+        android:text="Characters can only use established abilities. (Example: Spiderman can and will shoot webs.)"
         android:id="@+id/textView8"
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Weapons used by characters will be specified in game. (Example Link will have MasterSword, bombs, and boomerang. He can ONLY use those weapons.)"
+        android:text="Weapons used by characters will be specified in game. (Example: Link will have MasterSword, bombs, and boomerang. He can ONLY use those weapons.)"
         android:id="@+id/textView9"
         android:layout_below="@+id/textView8"
         android:layout_centerHorizontal="true" />
