@@ -1,5 +1,6 @@
 package com.example.guest.binder.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +27,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private ProgressDialog mAuthProgressDialog;
+    private String mName;
 
         @Bind(R.id.createUserButton) Button mCreateUserButton;
         @Bind(R.id.nameEditText) EditText mNameEditText;
@@ -45,9 +49,18 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
             mLoginTextView.setOnClickListener(this);
             mCreateUserButton.setOnClickListener(this);
+            createAuthProgressDialog();
+
         }
 
-        @Override
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("DETHWARZ");
+        mAuthProgressDialog.setMessage("Preparing the battles...");
+        mAuthProgressDialog.setCancelable(false);
+    }
+
+    @Override
         public void onClick(View view) {
 
             if (view == mLoginTextView) {
@@ -68,19 +81,30 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             final String email = mEmailEditText.getText().toString().trim();
             String password = mPasswordEditText.getText().toString().trim();
             String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
+            mName = mNameEditText.getText().toString().trim();
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            boolean validEmail = isValidEmail(email);
+            boolean validName = isValidName(mName);
+            boolean validPassword = isValidPassword(password, confirmPassword);
+            if(!validEmail || !validName || !validPassword) return;
+
+            mAuthProgressDialog.show();
+
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
+            {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+
                             if (task.isSuccessful()) {
                                 Log.d("Sign in", "This worked");
+                                createFirebaseUserProfile(task.getResult().getUser());
                             } else {
                                 Toast.makeText(CreateAccountActivity.this, "Authentication Failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
+
                         }
-                    });
+            });
         }
 
 
@@ -112,6 +136,54 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        boolean isGoodEmail =
+                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!isGoodEmail) {
+            mEmailEditText.setError("Please enter a valid email address");
+            return false;
+        }
+        return isGoodEmail;
+    }
+
+    private boolean isValidName(String name) {
+        if (name.equals("")) {
+            mNameEditText.setError("Please enter your name");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String confirmPassword) {
+        if (password.length() < 6) {
+            mPasswordEditText.setError("Please create a password containing at least 6 characters");
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            mPasswordEditText.setError("Passwords do not match");
+            return false;
+        }
+        return true;
+    }
+
+    private void createFirebaseUserProfile(final FirebaseUser user) {
+
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mName)
+                .build();
+
+        user.updateProfile(addProfileName)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("User name here:", user.getDisplayName());
+                        }
+                    }
+
+                });
     }
 
 }
