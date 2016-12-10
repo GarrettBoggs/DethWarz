@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.guest.binder.Constants;
@@ -36,15 +37,19 @@ import okhttp3.Response;
 
 public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.characterOneButton) Button mCharacterOneButton;
     @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
+    @Bind(R.id.heroOneName) TextView mHeroOneName;
+    @Bind(R.id.heroTwoName) TextView mHeroTwoName;
+
+    Random rn = new Random();
 
     private CharacterListAdapter mAdapter;
 
     private DatabaseReference mWinsReference;
 
-    public Character mCharacter;
+    public Character mCharacterOne;
+    public Character mCharacterTwo;
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
@@ -54,14 +59,28 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mWinsReference = FirebaseDatabase
                 .getInstance()
                 .getReference()
-                .child(Constants.FIREBASE_CHILD_WINS);
+                .child("allCharacters");
 
         mWinsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
-                    String location = locationSnapshot.getValue().toString();
-                    Log.d("Wins updated", "wins:");
+                    String name = (String) locationSnapshot.child("name").getValue();
+                    String desc = (String) locationSnapshot.child("description").getValue();
+                    String picture = (String) locationSnapshot.child("picture").getValue();
+
+                    Character temp = new Character(name, picture, desc);
+
+                    mCharacters.add(temp);
+
+                    if(mCharacters.size() > 2){
+                        int guess = rn.nextInt(mCharacters.size());
+                        mCharacterOne = mCharacters.get(guess);
+                        mHeroOneName.setText(mCharacterOne.getName());
+                        int guess2 = rn.nextInt(mCharacters.size());
+                        mCharacterTwo = mCharacters.get(guess2);
+                        mHeroTwoName.setText(mCharacterTwo.getName());
+                    }
                 }
             }
 
@@ -71,12 +90,11 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        //mWinsReference.child("1").child("name").setValue("spiderman");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
-
-        getCharacter();
-        getCharacter();
 
         mCharacterOneButton.setOnClickListener(this);
         mCharacterTwoButton.setOnClickListener(this);
@@ -118,51 +136,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("loser", mCharacters.get(0).getName());
             startActivity(intent);
         }
-    }
-
-    private void getCharacter() {
-        final BombService bombService = new BombService();
-        bombService.findCharacter(new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                mCharacters.add(bombService.proccessResults(response));
-
-                CoverActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                            mAdapter = new CharacterListAdapter(getApplicationContext(), mCharacters);
-                            mRecyclerView.setAdapter(mAdapter);
-                            RecyclerView.LayoutManager layoutManager =
-                                    new LinearLayoutManager(CoverActivity.this);
-                            mRecyclerView.setLayoutManager(layoutManager);
-                            mRecyclerView.setHasFixedSize(false);
-
-                        mCharacterOneButton.setText(mCharacters.get(0).getName());
-
-                        if(mCharacters.size() > 1){
-
-                            if(mCharacters.get(0).getName().equals(mCharacters.get(1).getName()) ) {
-                                mCharacters.remove(1);
-                                getCharacter();
-                            }
-
-                            if(mCharacters.size() > 1){
-                                mCharacterTwoButton.setText(mCharacters.get(1).getName());
-                            }
-
-                        }
-
-                    }
-
-                });
-            }
-        });
     }
 
     public void addWinToFirebase(String wins) {

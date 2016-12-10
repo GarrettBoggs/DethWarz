@@ -22,6 +22,15 @@ public class Character {
         this.description = description;
     }
 
+    public Character(String name, String picture, String description, String wins, String losses){
+        this.name = name;
+        this.picture = picture;
+        this.description = description;
+        this.wins = wins;
+        this.losses = losses;
+    }
+
+
     public Character() {};
 
     public String getName(){

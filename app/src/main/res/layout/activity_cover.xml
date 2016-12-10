@@ -6,13 +6,6 @@
 
     tools:context="com.example.guest.binder.ui.CoverActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-        android:layout_below="@+id/textView3"
-        android:layout_marginBottom="200dp"/>
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,5 +44,26 @@
         android:layout_above="@+id/characterTwoButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="heroOneName"
+        android:id="@+id/heroOneName"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/characterOneButton"
+        android:layout_alignStart="@+id/characterOneButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="heroTwoName"
+        android:id="@+id/heroTwoName"
+        android:layout_alignTop="@+id/heroOneName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
