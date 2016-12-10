@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
 
-            mCharacterReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_CHARACTERS).child(uid);
+            mCharacterReference = FirebaseDatabase.getInstance().getReference("allCharacters");
             setUpFirebaseAdapter();
         }
 

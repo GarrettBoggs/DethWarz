@@ -10,73 +10,6 @@
     tools:context="com.example.guest.binder.ui.StatsActivity">
 
     <TextView
-        android:text="Losses:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView19"
-        android:textSize="25sp"
-        android:layout_alignBaseline="@+id/loserWins"
-        android:layout_alignBottom="@+id/loserWins"
-        android:layout_toRightOf="@+id/nextButton"
-        android:layout_toEndOf="@+id/nextButton" />
-
-    <TextView
-        android:text="Wins:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/winnerText"
-        android:layout_toLeftOf="@+id/textView4"
-        android:layout_toStartOf="@+id/textView4"
-        android:layout_marginTop="28dp"
-        android:id="@+id/textView12"
-        android:textSize="25sp" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="80"
-        android:progressTint="@color/primary_dark"
-        android:layout_marginTop="63dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="80"
-        android:id="@+id/percentText"
-        android:layout_below="@+id/progressBar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="44dp"
-        android:layout_marginStart="44dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="% of users agree that"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/progressBar"
-        android:layout_toRightOf="@+id/percentText"
-        android:layout_toEndOf="@+id/percentText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Defeats"
-        android:id="@+id/textView5"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -87,7 +20,7 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:text="Past Victors"
+        android:text="Characters"
         android:textSize="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,57 +28,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Characters"
-        android:id="@+id/characterButton"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/nextButton"
-        android:layout_toStartOf="@+id/nextButton" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Loser"
-        android:id="@+id/loserText"
-        android:textSize="40sp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignLeft="@+id/winnerText"
-        android:layout_alignStart="@+id/winnerText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Winner"
-        android:id="@+id/winnerText"
-        android:textSize="40dp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4" />
-
-    <TextView
-        android:text="Wins:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView11"
-        android:textSize="25sp"
-        android:layout_below="@+id/loserText"
-        android:layout_alignLeft="@+id/textView12"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_marginTop="35dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next Battle?"
-        android:id="@+id/nextButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textView13"
-        android:layout_toStartOf="@+id/textView13" />
 
     <TextView
         android:text="TextView"
@@ -162,44 +44,81 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/winnerWins"
-        android:layout_toRightOf="@+id/textView13"
-        android:layout_toEndOf="@+id/textView13"
-        android:id="@+id/winnerLosses"
-        android:textSize="25sp"
-        android:layout_alignTop="@+id/winnerWins" />
-
-    <TextView
-        android:text="Losses:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView13"
-        android:textSize="25sp"
-
-        android:layout_toLeftOf="@+id/contactClick"
-        android:layout_toStartOf="@+id/contactClick" />
-
-    <TextView
-        android:text="Losses:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView14"
-        android:textSize="25sp"
-        android:layout_alignBaseline="@+id/winnerLosses"
-        android:layout_alignBottom="@+id/winnerLosses"
-        android:layout_toLeftOf="@+id/winnerLosses"
-        android:layout_toStartOf="@+id/winnerLosses" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/loserlosses"
         android:textSize="25sp"
-        android:layout_alignBaseline="@+id/textView19"
-        android:layout_alignBottom="@+id/textView19"
-        android:layout_toRightOf="@+id/textView19"
-        android:layout_toEndOf="@+id/textView19" />
+        android:layout_alignTop="@+id/textView11"
+        android:layout_toRightOf="@+id/textView11"
+        android:layout_toEndOf="@+id/textView11" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Battle?"
+        android:id="@+id/nextButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Defeats"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textView14"
+        android:layout_alignRight="@+id/loserText"
+        android:layout_alignEnd="@+id/loserText"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Loser"
+        android:id="@+id/loserText"
+        android:textSize="40sp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/winnerText"
+        android:layout_alignStart="@+id/winnerText" />
+
+    <TextView
+        android:text="Win %:"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loserWinRate"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14" />
+
+    <TextView
+        android:text="Win %:"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/winnerWinRate"
+        android:layout_below="@+id/textView19"
+        android:layout_alignLeft="@+id/textView19"
+        android:layout_alignStart="@+id/textView19" />
+
+    <TextView
+        android:text="Wins:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:textSize="25sp"
+        android:layout_below="@+id/loserText"
+        android:layout_alignLeft="@+id/loserText"
+        android:layout_alignStart="@+id/loserText" />
+
+    <TextView
+        android:text="Losses:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:textSize="25sp"
+        android:layout_below="@+id/loserlosses"
+        android:layout_alignLeft="@+id/textView11"
+        android:layout_alignStart="@+id/textView11" />
 
     <TextView
         android:text="TextView"
@@ -207,10 +126,73 @@
         android:layout_height="wrap_content"
         android:id="@+id/loserWins"
         android:textSize="25sp"
-        android:layout_alignBaseline="@+id/textView11"
-        android:layout_alignBottom="@+id/textView11"
-        android:layout_toRightOf="@+id/textView11"
-        android:layout_toEndOf="@+id/textView11" />
+        android:layout_alignBaseline="@+id/textView19"
+        android:layout_alignBottom="@+id/textView19"
+        android:layout_toRightOf="@+id/textView19"
+        android:layout_toEndOf="@+id/textView19" />
+
+    <TextView
+        android:text="Wins:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:textSize="25sp"
+        android:layout_below="@+id/winnerText"
+        android:layout_alignLeft="@+id/winnerText"
+        android:layout_alignStart="@+id/winnerText" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/winnerLosses"
+        android:textSize="25sp"
+        android:layout_alignBaseline="@+id/textView14"
+        android:layout_alignBottom="@+id/textView14"
+        android:layout_toRightOf="@+id/textView14"
+        android:layout_toEndOf="@+id/textView14" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Winner"
+        android:id="@+id/winnerText"
+        android:textSize="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/victorButton"
+        android:layout_toLeftOf="@+id/victorButton"
+        android:layout_toStartOf="@+id/victorButton" />
+
+    <TextView
+        android:text="Losses:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:textSize="25sp"
+        android:layout_below="@+id/winnerWins"
+        android:layout_alignLeft="@+id/textView12"
+        android:layout_alignStart="@+id/textView12" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/winnerWinPercent"
+        android:layout_alignBaseline="@+id/loserWinRate"
+        android:layout_alignBottom="@+id/loserWinRate"
+        android:layout_toRightOf="@+id/loserWinRate"
+        android:layout_toEndOf="@+id/loserWinRate" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:layout_alignBaseline="@+id/winnerWinRate"
+        android:layout_alignBottom="@+id/winnerWinRate"
+        android:layout_toRightOf="@+id/winnerWinRate"
+        android:layout_toEndOf="@+id/winnerWinRate" />
 
 
 </RelativeLayout>

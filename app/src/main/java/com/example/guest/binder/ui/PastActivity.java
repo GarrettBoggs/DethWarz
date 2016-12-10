@@ -35,7 +35,7 @@ public class PastActivity {
             setContentView(R.layout.activity_character);
             ButterKnife.bind(this);
 
-            mCharacterReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_CHARACTERS);
+            mCharacterReference = FirebaseDatabase.getInstance().getReference("allCharacters");
             setUpFirebaseAdapter();
         }
 

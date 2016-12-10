@@ -90,7 +90,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
                     mCharacters.add(temp);
 
-                    if(mCharacters.size() > 4 && !start){
+                    if(mCharacters.size() > 19 && !start){
                         int guess = rn.nextInt(mCharacters.size());
                         mCharacterOne = mCharacters.get(guess);
                         mCharacterOneButton.setText(mCharacterOne.getName());
@@ -162,6 +162,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("winner", mCharacterOne.getName());
             intent.putExtra("winnerWins" , mCharacterOne.getStringWins());
             intent.putExtra("winnerLosses" , mCharacterOne.getStringLosses());
+            intent.putExtra("winnerWinPercent" , mCharacterOne.calculateWin());
             intent.putExtra("loserWins" , mCharacterTwo.getStringWins());
             intent.putExtra("loserLosses" , mCharacterTwo.getStringLosses());
             intent.putExtra("loser", mCharacterTwo.getName());

@@ -20,6 +20,7 @@ public class Character {
     private String pushId;
 
     DecimalFormat df = new DecimalFormat("#");
+    DecimalFormat df2 = new DecimalFormat("0.00");
 
     public Character(String name, String picture, String description){
         this.name = name;
@@ -70,6 +71,12 @@ public class Character {
 
     public String getPushId() {
         return pushId;
+    }
+
+    public String calculateWin() {
+        Double dwin = (double) this.wins;
+        Double dloss = (double) this.losses;
+       return df2.format( dwin/(dloss + dwin) );
     }
 
     public void addWin() {

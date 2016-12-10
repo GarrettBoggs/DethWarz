@@ -19,11 +19,11 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.nextButton) Button mNextButton;
     @Bind(R.id.contactClick) TextView mContactClick;
     @Bind(R.id.victorButton) Button mVictorButton;
-    @Bind(R.id.characterButton) Button  mCharacterButton;
     @Bind(R.id.loserlosses) TextView mLoserLosses;
     @Bind(R.id.loserWins) TextView mLoserWins;
     @Bind(R.id.winnerWins) TextView mWinnerWins;
     @Bind(R.id.winnerLosses) TextView mWinnerLosses;
+    @Bind(R.id.winnerWinPercent) TextView mWinnerWinPercent;
 
 
     @Override
@@ -42,12 +42,13 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
         mWinnerWins.setText(intent.getStringExtra("winnerWins"));
         mWinnerLosses.setText(intent.getStringExtra("winnerLosses"));
+        mWinnerWinPercent.setText(intent.getStringExtra("winnerWinPercent"));
         mLoserWins.setText(intent.getStringExtra("loserWins"));
         mLoserLosses.setText(intent.getStringExtra("loserLosses"));
 
+
         mNextButton.setOnClickListener(this);
         mContactClick.setOnClickListener(this);
-        mCharacterButton.setOnClickListener(this);
         mVictorButton.setOnClickListener(this);
     }
 
@@ -61,11 +62,6 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
         else if (v == mContactClick) {
             Intent intent = new Intent(StatsActivity.this, ContactActivity.class);
-            startActivity(intent);
-        }
-
-        else if (v == mCharacterButton) {
-            Intent intent = new Intent(StatsActivity.this, CharacterActivity.class);
             startActivity(intent);
         }
 
