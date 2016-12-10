@@ -30,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -50,6 +52,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
     @Bind(R.id.heroOneName) TextView mHeroOneName;
     @Bind(R.id.heroTwoName) TextView mHeroTwoName;
+    @Bind(R.id.heroOneDescription) TextView mHeroOneDescription;
+    @Bind(R.id.heroTwoDescription) TextView mHeroTwoDescription;
 
     boolean start = false;
 
@@ -86,11 +90,12 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
                     mCharacters.add(temp);
 
-                    if(mCharacters.size() > 2 && !start){
+                    if(mCharacters.size() > 4 && !start){
                         int guess = rn.nextInt(mCharacters.size());
                         mCharacterOne = mCharacters.get(guess);
                         mCharacterOneButton.setText(mCharacterOne.getName());
                         mHeroOneName.setText(mCharacterOne.getName());
+                        mHeroOneDescription.setText(mCharacterOne.getDescription());
                         new DownloadImageTask(mCharacterOneImage)
                                 .execute(mCharacterOne.getPicture());
                        // Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterImageView);
@@ -98,6 +103,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                         int guess2 = rn.nextInt(mCharacters.size());
                         mCharacterTwo = mCharacters.get(guess2);
                         mHeroTwoName.setText(mCharacterTwo.getName());
+                        mHeroTwoDescription.setText(mCharacterTwo.getDescription());
                         new DownloadImageTask(mCharacterTwoImage)
                                 .execute(mCharacterTwo.getPicture());
                         mCharacterTwoButton.setText(mCharacterTwo.getName());
@@ -154,6 +160,10 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
 
             intent.putExtra("winner", mCharacterOne.getName());
+            intent.putExtra("winnerWins" , mCharacterOne.getStringWins());
+            intent.putExtra("winnerLosses" , mCharacterOne.getStringLosses());
+            intent.putExtra("loserWins" , mCharacterTwo.getStringWins());
+            intent.putExtra("loserLosses" , mCharacterTwo.getStringLosses());
             intent.putExtra("loser", mCharacterTwo.getName());
             startActivity(intent);
         }
@@ -167,6 +177,10 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             mOneReference.child("losses").setValue(mCharacterOne.getLosses());
 
             intent.putExtra("winner", mCharacterTwo.getName());
+            intent.putExtra("winnerWins" , mCharacterTwo.getStringWins());
+            intent.putExtra("winnerLosses" , mCharacterTwo.getStringLosses());
+            intent.putExtra("loserWins" , mCharacterOne.getStringWins());
+            intent.putExtra("loserLosses" , mCharacterOne.getStringLosses());
             intent.putExtra("loser", mCharacterOne.getName());
             startActivity(intent);
         }
