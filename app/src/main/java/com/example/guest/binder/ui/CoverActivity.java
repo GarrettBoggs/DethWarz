@@ -1,6 +1,10 @@
 package com.example.guest.binder.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -39,6 +45,8 @@ import okhttp3.Response;
 public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.characterOneButton) Button mCharacterOneButton;
+    @Bind(R.id.heroOneImage) ImageView mCharacterOneImage;
+    @Bind(R.id.heroTwoImage) ImageView mCharacterTwoImage;
     @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
     @Bind(R.id.heroOneName) TextView mHeroOneName;
     @Bind(R.id.heroTwoName) TextView mHeroTwoName;
@@ -83,11 +91,15 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                         mCharacterOne = mCharacters.get(guess);
                         mCharacterOneButton.setText(mCharacterOne.getName());
                         mHeroOneName.setText(mCharacterOne.getName());
+                        new DownloadImageTask(mCharacterOneImage)
+                                .execute(mCharacterOne.getPicture());
                        // Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterImageView);
 
                         int guess2 = rn.nextInt(mCharacters.size());
                         mCharacterTwo = mCharacters.get(guess2);
                         mHeroTwoName.setText(mCharacterTwo.getName());
+                        new DownloadImageTask(mCharacterTwoImage)
+                                .execute(mCharacterTwo.getPicture());
                         mCharacterTwoButton.setText(mCharacterTwo.getName());
 
 
@@ -167,4 +179,28 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mWinsReference.push().setValue(Integer.toString(intw));
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 }
