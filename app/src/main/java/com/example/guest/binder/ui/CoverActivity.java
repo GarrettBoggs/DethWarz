@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
     @Bind(R.id.heroOneName) TextView mHeroOneName;
     @Bind(R.id.heroTwoName) TextView mHeroTwoName;
+
+    boolean start = false;
 
     Random rn = new Random();
 
@@ -68,18 +71,27 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                     String name = (String) locationSnapshot.child("name").getValue();
                     String desc = (String) locationSnapshot.child("description").getValue();
                     String picture = (String) locationSnapshot.child("picture").getValue();
+                    long wins = (long) locationSnapshot.child("wins").getValue();
+                    long losses = (long) locationSnapshot.child("losses").getValue();
 
-                    Character temp = new Character(name, picture, desc);
+                    Character temp = new Character(name, picture, desc, wins, losses);
 
                     mCharacters.add(temp);
 
-                    if(mCharacters.size() > 2){
+                    if(mCharacters.size() > 2 && !start){
                         int guess = rn.nextInt(mCharacters.size());
                         mCharacterOne = mCharacters.get(guess);
+                        mCharacterOneButton.setText(mCharacterOne.getName());
                         mHeroOneName.setText(mCharacterOne.getName());
+                       // Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterImageView);
+
                         int guess2 = rn.nextInt(mCharacters.size());
                         mCharacterTwo = mCharacters.get(guess2);
                         mHeroTwoName.setText(mCharacterTwo.getName());
+                        mCharacterTwoButton.setText(mCharacterTwo.getName());
+
+
+                        start = true;
                     }
                 }
             }
@@ -109,31 +121,41 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
-        DatabaseReference mWinsReference = FirebaseDatabase
+        DatabaseReference mOneReference = FirebaseDatabase
                 .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_CHARACTERS)
-                .child(uid);
+                .getReference()
+                .child("allCharacters")
+                .child(mCharacterOne.getName());
 
-        DatabaseReference pushRef = mWinsReference.push();
-        String pushId = pushRef.getKey();
+        DatabaseReference mTwoReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("allCharacters")
+                .child(mCharacterTwo.getName());
 
         if(v == mCharacterOneButton){
 
-            mCharacters.get(0).setPushId(pushId);
-            pushRef.setValue( mCharacters.get(0));
+            mCharacterOne.addWin();
+            mCharacterTwo.addLoss();
 
-            intent.putExtra("winner", mCharacters.get(0).getName());
-            intent.putExtra("loser", mCharacters.get(1).getName());
+            mOneReference.child("wins").setValue(mCharacterOne.getWins());
+            mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
+
+            intent.putExtra("winner", mCharacterOne.getName());
+            intent.putExtra("loser", mCharacterTwo.getName());
             startActivity(intent);
         }
 
         if(v == mCharacterTwoButton){
 
-            mCharacters.get(1).setPushId(pushId);
-            pushRef.setValue( mCharacters.get(1));
+            mCharacterTwo.addWin();
+            mCharacterOne.addLoss();
 
-            intent.putExtra("winner", mCharacters.get(1).getName());
-            intent.putExtra("loser", mCharacters.get(0).getName());
+            mTwoReference.child("wins").setValue(mCharacterTwo.getWins());
+            mOneReference.child("losses").setValue(mCharacterOne.getLosses());
+
+            intent.putExtra("winner", mCharacterTwo.getName());
+            intent.putExtra("loser", mCharacterOne.getName());
             startActivity(intent);
         }
     }

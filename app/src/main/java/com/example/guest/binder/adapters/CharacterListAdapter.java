@@ -52,7 +52,6 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         @Bind(R.id.descriptionTextView) TextView mCharacterDescTextView;
         @Bind(R.id.characterImageView) ImageView mCharacterImageView;
 
-
         private Context mContext;
 
         public CharacterViewHolder(View itemView) {
