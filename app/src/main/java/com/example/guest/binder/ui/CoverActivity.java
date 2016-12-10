@@ -90,7 +90,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
                     mCharacters.add(temp);
 
-                    if(mCharacters.size() > 19 && !start){
+                    if(mCharacters.size() > 35 && !start){
                         int guess = rn.nextInt(mCharacters.size());
                         mCharacterOne = mCharacters.get(guess);
                         mCharacterOneButton.setText(mCharacterOne.getName());
@@ -107,7 +107,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                         new DownloadImageTask(mCharacterTwoImage)
                                 .execute(mCharacterTwo.getPicture());
                         mCharacterTwoButton.setText(mCharacterTwo.getName());
-
 
                         start = true;
                     }

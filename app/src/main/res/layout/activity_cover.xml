@@ -56,24 +56,6 @@
         android:layout_alignLeft="@+id/characterOneButton"
         android:layout_alignStart="@+id/characterOneButton" />
 
-    <ImageView
-        app:srcCompat="@drawable/dethwarz2"
-        android:id="@+id/heroOneImage"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_width="175dp"
-        android:layout_height="175dp" />
-
-    <ImageView
-        app:srcCompat="@drawable/dethwarz2"
-        android:id="@+id/heroTwoImage"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="175dp"
-        android:layout_height="175dp" />
-
     <TextView
         android:text="Battle Info"
         android:layout_width="wrap_content"
@@ -118,6 +100,23 @@
         android:layout_toStartOf="@+id/heroTwoName"
         android:layout_marginRight="15dp"
         android:layout_marginEnd="15dp" />
+
+    <ImageView
+        app:srcCompat="@drawable/dethwarz2"
+        android:id="@+id/heroOneImage"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        app:srcCompat="@drawable/dethwarz2"
+        android:id="@+id/heroTwoImage"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true" />
 
 
 </RelativeLayout>

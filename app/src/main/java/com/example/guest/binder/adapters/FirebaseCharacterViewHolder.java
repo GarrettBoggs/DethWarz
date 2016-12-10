@@ -31,6 +31,7 @@ import butterknife.Bind;
         public void bindCharacter(Character character) {
             TextView mCharacterTextView = (TextView) mView.findViewById(R.id.characterNameTextView);
             TextView mCharacterDescTextView = (TextView) mView.findViewById(R.id.descriptionTextView);
+            TextView mCharacterWinRate = (TextView) mView.findViewById(R.id.winPercent);
             ImageView mCharacterImageView = (ImageView) mView.findViewById(R.id.characterImageView);
 
 
@@ -42,6 +43,7 @@ import butterknife.Bind;
 
             mCharacterTextView.setText(character.getName());
             mCharacterDescTextView.setText(character.getDescription());
+            mCharacterWinRate.setText(character.calculateWin()+ "% Win");
 
         }
 
