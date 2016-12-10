@@ -12,8 +12,8 @@ public class Character {
     public String name;
     public String description;
     public String picture;
-    public String wins = "0";
-    public String losses = "0";
+    public long wins = 0;
+    public long losses = 0;
     private String pushId;
 
     public Character(String name, String picture, String description){
@@ -21,6 +21,15 @@ public class Character {
         this.picture = picture;
         this.description = description;
     }
+
+    public Character(String name, String picture, String description, long wins, long losses){
+        this.name = name;
+        this.picture = picture;
+        this.description = description;
+        this.wins = wins;
+        this.losses = losses;
+    }
+
 
     public Character() {};
 
@@ -36,9 +45,9 @@ public class Character {
         return description;
     }
 
-    public String getWins() { return wins; }
+    public long getWins() { return wins; }
 
-    public String getLosses() { return losses; }
+    public long getLosses() { return losses; }
 
     public void setPushId(String pushId){
         this.pushId = pushId;
@@ -46,5 +55,13 @@ public class Character {
 
     public String getPushId() {
         return pushId;
+    }
+
+    public void addWin() {
+        wins += 1;
+    }
+
+    public void addLoss() {
+        losses += 1;
     }
 }
