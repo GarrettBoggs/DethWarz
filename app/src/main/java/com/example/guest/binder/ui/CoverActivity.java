@@ -165,6 +165,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("winnerWinPercent" , mCharacterOne.calculateWin());
             intent.putExtra("loserWins" , mCharacterTwo.getStringWins());
             intent.putExtra("loserLosses" , mCharacterTwo.getStringLosses());
+            intent.putExtra("loserWinPercent" , mCharacterTwo.calculateWin());
             intent.putExtra("loser", mCharacterTwo.getName());
             startActivity(intent);
         }
@@ -183,6 +184,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("loserWins" , mCharacterOne.getStringWins());
             intent.putExtra("loserLosses" , mCharacterOne.getStringLosses());
             intent.putExtra("loser", mCharacterOne.getName());
+            intent.putExtra("loserWinPercent" , mCharacterOne.calculateWin());
+            intent.putExtra("winnerWinPercent" , mCharacterTwo.calculateWin());
             startActivity(intent);
         }
     }

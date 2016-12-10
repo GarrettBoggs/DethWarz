@@ -16,8 +16,8 @@ import butterknife.Bind;
  * Created by Guest on 12/8/16.
  */
     public class FirebaseCharacterViewHolder extends RecyclerView.ViewHolder {
-        private static final int MAX_WIDTH = 200;
-        private static final int MAX_HEIGHT = 200;
+        private static final int MAX_WIDTH = 300;
+        private static final int MAX_HEIGHT = 300;
 
         View mView;
         Context mContext;
@@ -37,7 +37,7 @@ import butterknife.Bind;
             Picasso.with(mContext)
                     .load(character.getPicture())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
-                    .centerCrop()
+                    .centerInside()
                     .into(mCharacterImageView);
 
             mCharacterTextView.setText(character.getName());

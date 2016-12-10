@@ -24,7 +24,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.winnerWins) TextView mWinnerWins;
     @Bind(R.id.winnerLosses) TextView mWinnerLosses;
     @Bind(R.id.winnerWinPercent) TextView mWinnerWinPercent;
-
+    @Bind(R.id.loserWinPercent) TextView mLoserWinPercent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,12 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         mWinnerText.setText(winner);
         mLoserText.setText(loser);
 
-
         mWinnerWins.setText(intent.getStringExtra("winnerWins"));
         mWinnerLosses.setText(intent.getStringExtra("winnerLosses"));
         mWinnerWinPercent.setText(intent.getStringExtra("winnerWinPercent"));
         mLoserWins.setText(intent.getStringExtra("loserWins"));
         mLoserLosses.setText(intent.getStringExtra("loserLosses"));
-
+        mLoserWinPercent.setText(intent.getStringExtra("loserWinPercent"));
 
         mNextButton.setOnClickListener(this);
         mContactClick.setOnClickListener(this);
