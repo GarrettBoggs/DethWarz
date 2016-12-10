@@ -90,7 +90,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
                     mCharacters.add(temp);
 
-                    if(mCharacters.size() > 35 && !start){
+                    if(mCharacters.size() > 40 && !start){
                         int guess = rn.nextInt(mCharacters.size());
                         mCharacterOne = mCharacters.get(guess);
                         mCharacterOneButton.setText(mCharacterOne.getName());
