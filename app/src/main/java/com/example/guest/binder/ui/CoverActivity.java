@@ -172,6 +172,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
         final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
 
+        performAnimation.setFillAfter(true);
+
         performAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -181,8 +183,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onAnimationEnd(Animation animation) {
                 startActivity(intent);
-                mCharacterOneImage.setX(400);
-                mCharacterTwoImage.setX(1000);
+
             }
 
             @Override
