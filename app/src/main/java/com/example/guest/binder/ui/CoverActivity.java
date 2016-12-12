@@ -57,10 +57,8 @@ import okhttp3.Response;
 
 public class CoverActivity extends AppCompatActivity implements View.OnClickListener, Animation.AnimationListener {
 
-    @Bind(R.id.characterOneButton) Button mCharacterOneButton;
     @Bind(R.id.heroOneImage) ImageView mCharacterOneImage;
     @Bind(R.id.heroTwoImage) ImageView mCharacterTwoImage;
-    @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
     @Bind(R.id.heroOneName) TextView mHeroOneName;
     @Bind(R.id.heroTwoName) TextView mHeroTwoName;
     @Bind(R.id.heroOneDescription) TextView mHeroOneDescription;
@@ -81,7 +79,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
-    Animation performAnimation;
+    Animation performAnimation, LoseAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +106,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                     if(mCharacters.size() > 40 && !start){
                         int guess = rn.nextInt(mCharacters.size());
                         mCharacterOne = mCharacters.get(guess);
-                        mCharacterOneButton.setText(mCharacterOne.getName());
                         mHeroOneName.setText(mCharacterOne.getName());
                         mHeroOneDescription.setText(mCharacterOne.getDescription());
                         new DownloadImageTask(mCharacterOneImage)
@@ -121,7 +118,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                         mHeroTwoDescription.setText(mCharacterTwo.getDescription());
                         new DownloadImageTask(mCharacterTwoImage)
                                 .execute(mCharacterTwo.getPicture());
-                        mCharacterTwoButton.setText(mCharacterTwo.getName());
 
                         start = true;
                     }
@@ -140,11 +136,14 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
 
-        mCharacterOneButton.setOnClickListener(this);
-        mCharacterTwoButton.setOnClickListener(this);
+        mCharacterOneImage.setOnClickListener(this);
+        mCharacterTwoImage.setOnClickListener(this);
 
         performAnimation = AnimationUtils.loadAnimation(this, R.anim.move_one);
         performAnimation.setRepeatCount(1);
+
+        LoseAnimation = AnimationUtils.loadAnimation(this, R.anim.move_left);
+        LoseAnimation.setRepeatCount(1);
 
     }
 
@@ -172,9 +171,28 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
         final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
 
+        LoseAnimation.setFillAfter(true);
         performAnimation.setFillAfter(true);
 
         performAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        LoseAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -207,7 +225,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .child("allCharacters")
                 .child(mCharacterTwo.getName());
 
-        if(v == mCharacterOneButton){
+        if(v == mCharacterOneImage){
 
             mCharacterOne.addWin();
             mCharacterTwo.addLoss();
@@ -230,7 +248,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
-        if(v == mCharacterTwoButton){
+        if(v == mCharacterTwoImage){
 
             mCharacterTwo.addWin();
             mCharacterOne.addLoss();
@@ -246,7 +264,9 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("loser", mCharacterOne.getName());
             intent.putExtra("loserWinPercent" , mCharacterOne.calculateWin());
             intent.putExtra("winnerWinPercent" , mCharacterTwo.calculateWin());
-            startActivity(intent);
+
+            mCharacterOneImage.startAnimation(LoseAnimation);
+            mCharacterTwoImage.startAnimation(LoseAnimation);
         }
     }
 
