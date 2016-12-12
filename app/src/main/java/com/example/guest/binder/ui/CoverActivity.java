@@ -1,8 +1,13 @@
 package com.example.guest.binder.ui;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Interpolator;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +15,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +55,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
+public class CoverActivity extends AppCompatActivity implements View.OnClickListener, Animation.AnimationListener {
 
     @Bind(R.id.characterOneButton) Button mCharacterOneButton;
     @Bind(R.id.heroOneImage) ImageView mCharacterOneImage;
@@ -57,6 +68,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     boolean start = false;
 
+    private static Context heroOneContext;
+
     Random rn = new Random();
 
     private CharacterListAdapter mAdapter;
@@ -67,6 +80,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     public Character mCharacterTwo;
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
+
+    Animation performAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,12 +143,53 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mCharacterOneButton.setOnClickListener(this);
         mCharacterTwoButton.setOnClickListener(this);
 
+        performAnimation = AnimationUtils.loadAnimation(this, R.anim.move_one);
+        performAnimation.setRepeatCount(1);
+
     }
 
     @Override
-    public void onClick(View v){
-        Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+    public void onAnimationStart(Animation animation) {
 
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
+
+    private static final int SWIPE_MIN_DISTANCE = 50;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    @Override
+    public void onClick(View v){
+
+
+        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+
+        performAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startActivity(intent);
+                mCharacterOneImage.setX(400);
+                mCharacterTwoImage.setX(1000);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
@@ -166,7 +222,11 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("loserLosses" , mCharacterTwo.getStringLosses());
             intent.putExtra("loserWinPercent" , mCharacterTwo.calculateWin());
             intent.putExtra("loser", mCharacterTwo.getName());
-            startActivity(intent);
+
+
+            mCharacterOneImage.startAnimation(performAnimation);
+            mCharacterTwoImage.startAnimation(performAnimation);
+
         }
 
         if(v == mCharacterTwoButton){
@@ -220,4 +280,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             bmImage.setImageBitmap(result);
         }
     }
+
+
+
 }
