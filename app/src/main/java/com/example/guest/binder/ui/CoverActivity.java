@@ -1,8 +1,13 @@
 package com.example.guest.binder.ui;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Interpolator;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +15,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +47,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
@@ -44,12 +57,10 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
+public class CoverActivity extends AppCompatActivity implements View.OnClickListener, Animation.AnimationListener {
 
-    @Bind(R.id.characterOneButton) Button mCharacterOneButton;
     @Bind(R.id.heroOneImage) ImageView mCharacterOneImage;
     @Bind(R.id.heroTwoImage) ImageView mCharacterTwoImage;
-    @Bind(R.id.characterTwoButton) Button mCharacterTwoButton;
     @Bind(R.id.heroOneName) TextView mHeroOneName;
     @Bind(R.id.heroTwoName) TextView mHeroTwoName;
     @Bind(R.id.heroOneDescription) TextView mHeroOneDescription;
@@ -57,60 +68,86 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     boolean start = false;
 
+    private static Context heroOneContext;
+
     Random rn = new Random();
 
     private CharacterListAdapter mAdapter;
 
     private DatabaseReference mWinsReference;
+    private DatabaseReference mWinsReferenceTwo;
 
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
     public ArrayList<Character> mCharacters = new ArrayList<>();
 
+    public List<String> characterNames = Arrays.asList("Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird") ;
+
+    Animation performAnimation, LoseAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        int guess = rn.nextInt(characterNames.size() - 1);
 
         mWinsReference = FirebaseDatabase
                 .getInstance()
                 .getReference()
-                .child("allCharacters");
+                .child("allCharacters")
+                .child("Boo");
+
+        mWinsReferenceTwo = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("allCharacters")
+                .child("Cloud");
 
         mWinsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
-                    String name = (String) locationSnapshot.child("name").getValue();
-                    String desc = (String) locationSnapshot.child("description").getValue();
-                    String picture = (String) locationSnapshot.child("picture").getValue();
-                    long wins = (long) locationSnapshot.child("wins").getValue();
-                    long losses = (long) locationSnapshot.child("losses").getValue();
+
+                    String name = (String) dataSnapshot.child("name").getValue();
+                    String desc = (String)  dataSnapshot.child("description").getValue();
+                    String picture = (String)  dataSnapshot.child("picture").getValue();
+                    long wins = (long)  dataSnapshot.child("wins").getValue();
+                    long losses = (long)  dataSnapshot.child("losses").getValue();
 
                     Character temp = new Character(name, picture, desc, wins, losses);
 
-                    mCharacters.add(temp);
-
-                    if(mCharacters.size() > 40 && !start){
-                        int guess = rn.nextInt(mCharacters.size());
-                        mCharacterOne = mCharacters.get(guess);
-                        mCharacterOneButton.setText(mCharacterOne.getName());
-                        mHeroOneName.setText(mCharacterOne.getName());
-                        mHeroOneDescription.setText(mCharacterOne.getDescription());
-                        new DownloadImageTask(mCharacterOneImage)
-                                .execute(mCharacterOne.getPicture());
+                    mCharacterOne = temp;
+                    mHeroOneName.setText(mCharacterOne.getName());
+                    mHeroOneDescription.setText(mCharacterOne.getDescription());
+                    new DownloadImageTask(mCharacterOneImage)
+                            .execute(mCharacterOne.getPicture());
                        // Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterImageView);
 
-                        int guess2 = rn.nextInt(mCharacters.size());
-                        mCharacterTwo = mCharacters.get(guess2);
-                        mHeroTwoName.setText(mCharacterTwo.getName());
-                        mHeroTwoDescription.setText(mCharacterTwo.getDescription());
-                        new DownloadImageTask(mCharacterTwoImage)
-                                .execute(mCharacterTwo.getPicture());
-                        mCharacterTwoButton.setText(mCharacterTwo.getName());
-
-                        start = true;
-                    }
                 }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mWinsReferenceTwo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String name = (String) dataSnapshot.child("name").getValue();
+                String desc = (String)  dataSnapshot.child("description").getValue();
+                String picture = (String)  dataSnapshot.child("picture").getValue();
+                long wins = (long)  dataSnapshot.child("wins").getValue();
+                long losses = (long)  dataSnapshot.child("losses").getValue();
+
+                Character temp = new Character(name, picture, desc, wins, losses);
+
+                mCharacterTwo = temp;
+                mHeroTwoName.setText(mCharacterTwo.getName());
+                mHeroTwoDescription.setText(mCharacterTwo.getDescription());
+                new DownloadImageTask(mCharacterTwoImage)
+                        .execute(mCharacterTwo.getPicture());
+
             }
 
             @Override
@@ -119,21 +156,86 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+
         //mWinsReference.child("1").child("name").setValue("spiderman");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
 
-        mCharacterOneButton.setOnClickListener(this);
-        mCharacterTwoButton.setOnClickListener(this);
+        mCharacterOneImage.setOnClickListener(this);
+        mCharacterTwoImage.setOnClickListener(this);
+
+        performAnimation = AnimationUtils.loadAnimation(this, R.anim.move_one);
+        performAnimation.setRepeatCount(1);
+
+        LoseAnimation = AnimationUtils.loadAnimation(this, R.anim.move_left);
+        LoseAnimation.setRepeatCount(1);
 
     }
 
     @Override
-    public void onClick(View v){
-        Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+    public void onAnimationStart(Animation animation) {
 
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
+
+    private static final int SWIPE_MIN_DISTANCE = 50;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    @Override
+    public void onClick(View v){
+
+
+        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+
+        LoseAnimation.setFillAfter(true);
+        performAnimation.setFillAfter(true);
+
+        performAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        LoseAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
@@ -150,7 +252,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .child("allCharacters")
                 .child(mCharacterTwo.getName());
 
-        if(v == mCharacterOneButton){
+        if(v == mCharacterOneImage){
 
             mCharacterOne.addWin();
             mCharacterTwo.addLoss();
@@ -166,10 +268,14 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("loserLosses" , mCharacterTwo.getStringLosses());
             intent.putExtra("loserWinPercent" , mCharacterTwo.calculateWin());
             intent.putExtra("loser", mCharacterTwo.getName());
-            startActivity(intent);
+
+
+            mCharacterOneImage.startAnimation(performAnimation);
+            mCharacterTwoImage.startAnimation(performAnimation);
+
         }
 
-        if(v == mCharacterTwoButton){
+        if(v == mCharacterTwoImage){
 
             mCharacterTwo.addWin();
             mCharacterOne.addLoss();
@@ -185,7 +291,9 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("loser", mCharacterOne.getName());
             intent.putExtra("loserWinPercent" , mCharacterOne.calculateWin());
             intent.putExtra("winnerWinPercent" , mCharacterTwo.calculateWin());
-            startActivity(intent);
+
+            mCharacterOneImage.startAnimation(LoseAnimation);
+            mCharacterTwoImage.startAnimation(LoseAnimation);
         }
     }
 
@@ -220,4 +328,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             bmImage.setImageBitmap(result);
         }
     }
+
+
+
 }
