@@ -66,13 +66,11 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.heroOneDescription) TextView mHeroOneDescription;
     @Bind(R.id.heroTwoDescription) TextView mHeroTwoDescription;
 
-    boolean start = false;
+    boolean dead = false;
 
-    private static Context heroOneContext;
+    private Context mContext;
 
     Random rn = new Random();
-
-    private CharacterListAdapter mAdapter;
 
     private DatabaseReference mWinsReference;
     private DatabaseReference mWinsReferenceTwo;
@@ -80,28 +78,37 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
-    public ArrayList<Character> mCharacters = new ArrayList<>();
-
-    public List<String> characterNames = Arrays.asList("Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird") ;
+    public List<String> characterNames = Arrays.asList("Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Superman", "The Flash","The Hulk", "Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus") ;
 
     Animation performAnimation, LoseAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mContext = getBaseContext();
 
-        int guess = rn.nextInt(characterNames.size() - 1);
+        int guessSize = characterNames.size() - 1;
+        int guess = rn.nextInt(guessSize);
+        int guess2;
+
+        Log.d("Turtles!" , characterNames.get(guess));
 
         mWinsReference = FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("allCharacters")
-                .child("Boo");
+                .child(characterNames.get(guess));
+
+        do{
+            guess2 = rn.nextInt(guessSize);
+        } while (guess == guess2);
+
+        Log.d("Turtles!" , characterNames.get(guess2));
 
         mWinsReferenceTwo = FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("allCharacters")
-                .child("Cloud");
+                .child(characterNames.get(guess2));
 
         mWinsReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -118,9 +125,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                     mCharacterOne = temp;
                     mHeroOneName.setText(mCharacterOne.getName());
                     mHeroOneDescription.setText(mCharacterOne.getDescription());
-                    new DownloadImageTask(mCharacterOneImage)
-                            .execute(mCharacterOne.getPicture());
-                       // Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterImageView);
+
+                    Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterOneImage);
 
                 }
 
@@ -145,8 +151,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 mCharacterTwo = temp;
                 mHeroTwoName.setText(mCharacterTwo.getName());
                 mHeroTwoDescription.setText(mCharacterTwo.getDescription());
-                new DownloadImageTask(mCharacterTwoImage)
-                        .execute(mCharacterTwo.getPicture());
+
+                Picasso.with(mContext).load(mCharacterTwo.getPicture()).into(mCharacterTwoImage);
 
             }
 
@@ -253,47 +259,53 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .child(mCharacterTwo.getName());
 
         if(v == mCharacterOneImage){
+            intent.putExtra("winner", mCharacterOne.getName());
+            intent.putExtra("winnerWins", mCharacterOne.getStringWins());
+            intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
+            intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
+            intent.putExtra("loserWins", mCharacterTwo.getStringWins());
+            intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
+            intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
+            intent.putExtra("loser", mCharacterTwo.getName());
 
-            mCharacterOne.addWin();
-            mCharacterTwo.addLoss();
+            if(!dead) {
+
+                mCharacterOne.addWin();
+                mCharacterTwo.addLoss();
+
+                mCharacterOneImage.startAnimation(performAnimation);
+                mCharacterTwoImage.startAnimation(performAnimation);
+                dead = true;
+
+            }
 
             mOneReference.child("wins").setValue(mCharacterOne.getWins());
             mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
 
-            intent.putExtra("winner", mCharacterOne.getName());
-            intent.putExtra("winnerWins" , mCharacterOne.getStringWins());
-            intent.putExtra("winnerLosses" , mCharacterOne.getStringLosses());
-            intent.putExtra("winnerWinPercent" , mCharacterOne.calculateWin());
-            intent.putExtra("loserWins" , mCharacterTwo.getStringWins());
-            intent.putExtra("loserLosses" , mCharacterTwo.getStringLosses());
-            intent.putExtra("loserWinPercent" , mCharacterTwo.calculateWin());
-            intent.putExtra("loser", mCharacterTwo.getName());
-
-
-            mCharacterOneImage.startAnimation(performAnimation);
-            mCharacterTwoImage.startAnimation(performAnimation);
 
         }
 
         if(v == mCharacterTwoImage){
+            if(!dead) {
+                mCharacterTwo.addWin();
+                mCharacterOne.addLoss();
 
-            mCharacterTwo.addWin();
-            mCharacterOne.addLoss();
+                mCharacterOneImage.startAnimation(LoseAnimation);
+                mCharacterTwoImage.startAnimation(LoseAnimation);
+                dead = true;
+            }
 
             mTwoReference.child("wins").setValue(mCharacterTwo.getWins());
             mOneReference.child("losses").setValue(mCharacterOne.getLosses());
 
             intent.putExtra("winner", mCharacterTwo.getName());
-            intent.putExtra("winnerWins" , mCharacterTwo.getStringWins());
-            intent.putExtra("winnerLosses" , mCharacterTwo.getStringLosses());
-            intent.putExtra("loserWins" , mCharacterOne.getStringWins());
-            intent.putExtra("loserLosses" , mCharacterOne.getStringLosses());
+            intent.putExtra("winnerWins", mCharacterTwo.getStringWins());
+            intent.putExtra("winnerLosses", mCharacterTwo.getStringLosses());
+            intent.putExtra("loserWins", mCharacterOne.getStringWins());
+            intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
             intent.putExtra("loser", mCharacterOne.getName());
-            intent.putExtra("loserWinPercent" , mCharacterOne.calculateWin());
-            intent.putExtra("winnerWinPercent" , mCharacterTwo.calculateWin());
-
-            mCharacterOneImage.startAnimation(LoseAnimation);
-            mCharacterTwoImage.startAnimation(LoseAnimation);
+            intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
+            intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
         }
     }
 
