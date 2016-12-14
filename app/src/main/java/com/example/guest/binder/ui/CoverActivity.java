@@ -78,7 +78,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
-    public List<String> characterNames = Arrays.asList("Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Superman", "The Flash","The Hulk", "Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus") ;
+    public List<String> characterNames = Arrays.asList("Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Superman", "The Flash","The Hulk", "Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
 
     Animation performAnimation, LoseAnimation;
 
@@ -259,14 +259,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .child(mCharacterTwo.getName());
 
         if(v == mCharacterOneImage){
-            intent.putExtra("winner", mCharacterOne.getName());
-            intent.putExtra("winnerWins", mCharacterOne.getStringWins());
-            intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
-            intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
-            intent.putExtra("loserWins", mCharacterTwo.getStringWins());
-            intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
-            intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
-            intent.putExtra("loser", mCharacterTwo.getName());
 
             if(!dead) {
 
@@ -278,6 +270,14 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 dead = true;
 
             }
+            intent.putExtra("winner", mCharacterOne.getName());
+            intent.putExtra("winnerWins", mCharacterOne.getStringWins());
+            intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
+            intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
+            intent.putExtra("loserWins", mCharacterTwo.getStringWins());
+            intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
+            intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
+            intent.putExtra("loser", mCharacterTwo.getName());
 
             mOneReference.child("wins").setValue(mCharacterOne.getWins());
             mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
