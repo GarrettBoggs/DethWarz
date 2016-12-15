@@ -4,12 +4,7 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Interpolator;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,7 +52,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class CoverActivity extends AppCompatActivity implements View.OnClickListener, Animation.AnimationListener {
+public class CoverActivity extends AppCompatActivity implements Animation.AnimationListener {
+
+    private GestureDetectorCompat mDetector;
 
     @Bind(R.id.heroOneImage) ImageView mCharacterOneImage;
     @Bind(R.id.heroTwoImage) ImageView mCharacterTwoImage;
@@ -86,11 +83,11 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         mContext = getBaseContext();
 
+        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+
         int guessSize = characterNames.size() - 1;
         int guess = rn.nextInt(guessSize);
         int guess2;
-
-        Log.d("Turtles!" , characterNames.get(guess));
 
         mWinsReference = FirebaseDatabase
                 .getInstance()
@@ -101,8 +98,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         do{
             guess2 = rn.nextInt(guessSize);
         } while (guess == guess2);
-
-        Log.d("Turtles!" , characterNames.get(guess2));
 
         mWinsReferenceTwo = FirebaseDatabase
                 .getInstance()
@@ -163,14 +158,12 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         });
 
 
-        //mWinsReference.child("1").child("name").setValue("spiderman");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
-
-        mCharacterOneImage.setOnClickListener(this);
-        mCharacterTwoImage.setOnClickListener(this);
+//
+//        mCharacterOneImage.setOnClickListener(this);
+//        mCharacterTwoImage.setOnClickListener(this);
 
         performAnimation = AnimationUtils.loadAnimation(this, R.anim.move_one);
         performAnimation.setRepeatCount(1);
@@ -178,6 +171,10 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         LoseAnimation = AnimationUtils.loadAnimation(this, R.anim.move_left);
         LoseAnimation.setRepeatCount(1);
 
+        LoseAnimation.setFillAfter(true);
+        performAnimation.setFillAfter(true);
+
+        mDetector = new GestureDetectorCompat(this, new MyGestureListener());
     }
 
     @Override
@@ -198,147 +195,225 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     private static final int SWIPE_MIN_DISTANCE = 50;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
+//    @Override
+//    public void onClick(View v){
+//
+//        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+//
+//        performAnimation.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                startActivity(intent);
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+//
+//        LoseAnimation.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                startActivity(intent);
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String uid = user.getUid();
+//
+//        DatabaseReference mOneReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference()
+//                .child("allCharacters")
+//                .child(mCharacterOne.getName());
+//
+//        DatabaseReference mTwoReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference()
+//                .child("allCharacters")
+//                .child(mCharacterTwo.getName());
+//
+//        if(v == mCharacterOneImage){
+//
+//            if(!dead) {
+//
+//                mCharacterOne.addWin();
+//                mCharacterTwo.addLoss();
+//
+//                mCharacterOneImage.startAnimation(performAnimation);
+//                mCharacterTwoImage.startAnimation(performAnimation);
+//                dead = true;
+//
+//            }
+//            intent.putExtra("winner", mCharacterOne.getName());
+//            intent.putExtra("winnerWins", mCharacterOne.getStringWins());
+//            intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
+//            intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
+//            intent.putExtra("loserWins", mCharacterTwo.getStringWins());
+//            intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
+//            intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
+//            intent.putExtra("loser", mCharacterTwo.getName());
+//
+//            mOneReference.child("wins").setValue(mCharacterOne.getWins());
+//            mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
+//
+//
+//        }
+//
+//        if(v == mCharacterTwoImage){
+//            if(!dead) {
+//                mCharacterTwo.addWin();
+//                mCharacterOne.addLoss();
+//
+//                mCharacterOneImage.startAnimation(LoseAnimation);
+//                mCharacterTwoImage.startAnimation(LoseAnimation);
+//                dead = true;
+//            }
+//
+//            mTwoReference.child("wins").setValue(mCharacterTwo.getWins());
+//            mOneReference.child("losses").setValue(mCharacterOne.getLosses());
+//
+//            intent.putExtra("winner", mCharacterTwo.getName());
+//            intent.putExtra("winnerWins", mCharacterTwo.getStringWins());
+//            intent.putExtra("winnerLosses", mCharacterTwo.getStringLosses());
+//            intent.putExtra("loserWins", mCharacterOne.getStringWins());
+//            intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
+//            intent.putExtra("loser", mCharacterOne.getName());
+//            intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
+//            intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
+//        }
+//    }
+
     @Override
-    public void onClick(View v){
+    public boolean onTouchEvent(MotionEvent event){
+        this.mDetector.onTouchEvent(event);
 
-
-        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
-
-        LoseAnimation.setFillAfter(true);
-        performAnimation.setFillAfter(true);
-
-        performAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                startActivity(intent);
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        LoseAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                startActivity(intent);
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
-        DatabaseReference mOneReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("allCharacters")
-                .child(mCharacterOne.getName());
-
-        DatabaseReference mTwoReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("allCharacters")
-                .child(mCharacterTwo.getName());
-
-        if(v == mCharacterOneImage){
-
-            if(!dead) {
-
-                mCharacterOne.addWin();
-                mCharacterTwo.addLoss();
-
-                mCharacterOneImage.startAnimation(performAnimation);
-                mCharacterTwoImage.startAnimation(performAnimation);
-                dead = true;
-
-            }
-            intent.putExtra("winner", mCharacterOne.getName());
-            intent.putExtra("winnerWins", mCharacterOne.getStringWins());
-            intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
-            intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
-            intent.putExtra("loserWins", mCharacterTwo.getStringWins());
-            intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
-            intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
-            intent.putExtra("loser", mCharacterTwo.getName());
-
-            mOneReference.child("wins").setValue(mCharacterOne.getWins());
-            mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
-
-
-        }
-
-        if(v == mCharacterTwoImage){
-            if(!dead) {
-                mCharacterTwo.addWin();
-                mCharacterOne.addLoss();
-
-                mCharacterOneImage.startAnimation(LoseAnimation);
-                mCharacterTwoImage.startAnimation(LoseAnimation);
-                dead = true;
-            }
-
-            mTwoReference.child("wins").setValue(mCharacterTwo.getWins());
-            mOneReference.child("losses").setValue(mCharacterOne.getLosses());
-
-            intent.putExtra("winner", mCharacterTwo.getName());
-            intent.putExtra("winnerWins", mCharacterTwo.getStringWins());
-            intent.putExtra("winnerLosses", mCharacterTwo.getStringLosses());
-            intent.putExtra("loserWins", mCharacterOne.getStringWins());
-            intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
-            intent.putExtra("loser", mCharacterOne.getName());
-            intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
-            intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
-        }
+        return super.onTouchEvent(event);
     }
 
-    public void addWinToFirebase(String wins) {
-        int intw = Integer.parseInt(wins);
-        intw += 1;
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
-        mWinsReference.push().setValue(Integer.toString(intw));
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+        @Override
+        public boolean onDown(MotionEvent event) {
+            Log.d("OnDown", "This work?");
+            return true;
         }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                               float velocityY) {
+
+            final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+
+            performAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mCharacterOne.addWin();
+                    mCharacterTwo.addLoss();
+
+                    intent.putExtra("winner", mCharacterOne.getName());
+                    intent.putExtra("winnerWins", mCharacterOne.getStringWins());
+                    intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
+                    intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
+                    intent.putExtra("loserWins", mCharacterTwo.getStringWins());
+                    intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
+                    intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
+                    intent.putExtra("loser", mCharacterTwo.getName());
+
+                    mWinsReference.child("wins").setValue(mCharacterOne.getWins());
+                    mWinsReferenceTwo.child("losses").setValue(mCharacterTwo.getLosses());
+
+                    startActivity(intent);
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            LoseAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mCharacterTwo.addWin();
+                    mCharacterOne.addLoss();
+
+                    mWinsReference.child("losses").setValue(mCharacterOne.getLosses());
+                    mWinsReferenceTwo.child("wins").setValue(mCharacterTwo.getWins());
+
+                    intent.putExtra("winner", mCharacterTwo.getName());
+                    intent.putExtra("winnerWins", mCharacterTwo.getStringWins());
+                    intent.putExtra("winnerLosses", mCharacterTwo.getStringLosses());
+                    intent.putExtra("loserWins", mCharacterOne.getStringWins());
+                    intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
+                    intent.putExtra("loser", mCharacterOne.getName());
+                    intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
+                    intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
+                    startActivity(intent);
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            final int SWIPE_MIN_DISTANCE = 60;
+            final int SWIPE_MAX_OFF_PATH = 250;
+            final int SWIPE_THRESHOLD_VELOCITY = 50;
+
             try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
+                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                    return false;
+                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    Log.d("FLING", "This flung!");
+                    mCharacterOneImage.startAnimation(LoseAnimation);
+                    mCharacterTwoImage.startAnimation(LoseAnimation);
+
+                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
+                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    mCharacterOneImage.startAnimation(performAnimation);
+                    mCharacterTwoImage.startAnimation(performAnimation);
+                }
+
+
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
+
             }
-            return mIcon11;
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
 
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
     }
 
 
