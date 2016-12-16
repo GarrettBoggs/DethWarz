@@ -34,7 +34,6 @@ import butterknife.Bind;
             TextView mCharacterWinRate = (TextView) mView.findViewById(R.id.winPercent);
             ImageView mCharacterImageView = (ImageView) mView.findViewById(R.id.characterImageView);
 
-
             Picasso.with(mContext)
                     .load(character.getPicture())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
@@ -44,7 +43,6 @@ import butterknife.Bind;
             mCharacterTextView.setText(character.getName());
             mCharacterDescTextView.setText(character.getDescription());
             mCharacterWinRate.setText(character.calculateWin()+ "% Win");
-
         }
 
 }

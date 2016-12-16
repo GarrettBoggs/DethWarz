@@ -75,7 +75,7 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
-    public List<String> characterNames = Arrays.asList("Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Superman", "The Flash","The Hulk", "Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
+    public List<String> characterNames = Arrays.asList("John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
 
     Animation performAnimation, LoseAnimation;
 
@@ -161,9 +161,6 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
         ButterKnife.bind(this);
-//
-//        mCharacterOneImage.setOnClickListener(this);
-//        mCharacterTwoImage.setOnClickListener(this);
 
         performAnimation = AnimationUtils.loadAnimation(this, R.anim.move_one);
         performAnimation.setRepeatCount(1);
@@ -194,113 +191,6 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
 
     private static final int SWIPE_MIN_DISTANCE = 50;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
-
-//    @Override
-//    public void onClick(View v){
-//
-//        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
-//
-//        performAnimation.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                startActivity(intent);
-//
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
-//
-//        LoseAnimation.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                startActivity(intent);
-//
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
-//
-//        DatabaseReference mOneReference = FirebaseDatabase
-//                .getInstance()
-//                .getReference()
-//                .child("allCharacters")
-//                .child(mCharacterOne.getName());
-//
-//        DatabaseReference mTwoReference = FirebaseDatabase
-//                .getInstance()
-//                .getReference()
-//                .child("allCharacters")
-//                .child(mCharacterTwo.getName());
-//
-//        if(v == mCharacterOneImage){
-//
-//            if(!dead) {
-//
-//                mCharacterOne.addWin();
-//                mCharacterTwo.addLoss();
-//
-//                mCharacterOneImage.startAnimation(performAnimation);
-//                mCharacterTwoImage.startAnimation(performAnimation);
-//                dead = true;
-//
-//            }
-//            intent.putExtra("winner", mCharacterOne.getName());
-//            intent.putExtra("winnerWins", mCharacterOne.getStringWins());
-//            intent.putExtra("winnerLosses", mCharacterOne.getStringLosses());
-//            intent.putExtra("winnerWinPercent", mCharacterOne.calculateWin());
-//            intent.putExtra("loserWins", mCharacterTwo.getStringWins());
-//            intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
-//            intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
-//            intent.putExtra("loser", mCharacterTwo.getName());
-//
-//            mOneReference.child("wins").setValue(mCharacterOne.getWins());
-//            mTwoReference.child("losses").setValue(mCharacterTwo.getLosses());
-//
-//
-//        }
-//
-//        if(v == mCharacterTwoImage){
-//            if(!dead) {
-//                mCharacterTwo.addWin();
-//                mCharacterOne.addLoss();
-//
-//                mCharacterOneImage.startAnimation(LoseAnimation);
-//                mCharacterTwoImage.startAnimation(LoseAnimation);
-//                dead = true;
-//            }
-//
-//            mTwoReference.child("wins").setValue(mCharacterTwo.getWins());
-//            mOneReference.child("losses").setValue(mCharacterOne.getLosses());
-//
-//            intent.putExtra("winner", mCharacterTwo.getName());
-//            intent.putExtra("winnerWins", mCharacterTwo.getStringWins());
-//            intent.putExtra("winnerLosses", mCharacterTwo.getStringLosses());
-//            intent.putExtra("loserWins", mCharacterOne.getStringWins());
-//            intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
-//            intent.putExtra("loser", mCharacterOne.getName());
-//            intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
-//            intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
-//        }
-//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
@@ -345,6 +235,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
 
                     mWinsReference.child("wins").setValue(mCharacterOne.getWins());
                     mWinsReferenceTwo.child("losses").setValue(mCharacterTwo.getLosses());
+                    mWinsReference.child("winrate").setValue(mCharacterOne.calculateWin());
+                    mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin());
 
                     startActivity(intent);
 
@@ -369,6 +261,9 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
 
                     mWinsReference.child("losses").setValue(mCharacterOne.getLosses());
                     mWinsReferenceTwo.child("wins").setValue(mCharacterTwo.getWins());
+
+                    mWinsReference.child("winrate").setValue(mCharacterOne.calculateWin());
+                    mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin());
 
                     intent.putExtra("winner", mCharacterTwo.getName());
                     intent.putExtra("winnerWins", mCharacterTwo.getStringWins());
@@ -415,7 +310,5 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
         }
 
     }
-
-
 
 }
