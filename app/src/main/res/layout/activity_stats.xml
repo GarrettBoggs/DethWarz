@@ -50,7 +50,7 @@
         android:text="Next Fight" />
 
     <TextView
-        android:text="Win %:"
+        android:text="Win:"
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:layout_alignStart="@+id/textView14" />
 
     <TextView
-        android:text="Win %:"
+        android:text="Win:"
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

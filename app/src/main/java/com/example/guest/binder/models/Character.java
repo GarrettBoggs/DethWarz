@@ -76,7 +76,12 @@ public class Character {
     public String calculateWin() {
         Double dwin = (double) this.wins;
         Double dloss = (double) this.losses;
-       return df2.format( dwin/(dloss + dwin) * 100 );
+
+        if (dwin/(dloss + dwin) * 100 >= 10){
+        } else{
+            return "0" +  df2.format( dwin/(dloss + dwin) * 100 );
+        }
+        return df2.format( dwin/(dloss + dwin) * 100 );
     }
 
     public void addWin() {

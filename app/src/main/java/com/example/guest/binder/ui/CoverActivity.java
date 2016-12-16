@@ -75,7 +75,7 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
-    public List<String> characterNames = Arrays.asList("John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
+    public List<String> characterNames = Arrays.asList("Dory", "Michelangelo" ,"Goku" ,"Seabiscuit" ,"Al Capone", "John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
 
     Animation performAnimation, LoseAnimation;
 
@@ -235,8 +235,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
 
                     mWinsReference.child("wins").setValue(mCharacterOne.getWins());
                     mWinsReferenceTwo.child("losses").setValue(mCharacterTwo.getLosses());
-                    mWinsReference.child("winrate").setValue(mCharacterOne.calculateWin());
-                    mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin());
+                    mWinsReference.child("winrate").setValue(mCharacterOne.calculateWin() + "%");
+                    mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin() + "%");
 
                     startActivity(intent);
 
@@ -271,8 +271,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                     intent.putExtra("loserWins", mCharacterOne.getStringWins());
                     intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
                     intent.putExtra("loser", mCharacterOne.getName());
-                    intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
-                    intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
+                    intent.putExtra("loserWinPercent", mCharacterOne.calculateWin() + "%");
+                    intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin() + "%");
                     startActivity(intent);
 
                 }
