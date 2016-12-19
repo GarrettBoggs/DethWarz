@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:text="I'm READY!"
         android:id="@+id/loginButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:background="@color/primary"
-        android:layout_marginBottom="32dp" />
+        android:layout_below="@+id/textView8"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,19 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Characters can only use established abilities. (Example: Spiderman can and will shoot webs.)"
+        android:text="Characters can only use all canon abilities and weapons. (Example: Spiderman can and will shoot webs. Link can use boomerang, bombs, etc.)"
         android:id="@+id/textView8"
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Weapons used by characters will be specified in game. (Example: Link will have MasterSword, bombs, and boomerang. He can ONLY use those weapons.)"
-        android:id="@+id/textView9"
-        android:layout_below="@+id/textView8"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

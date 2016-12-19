@@ -45,11 +45,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="heroTwoName"
         android:id="@+id/heroTwoName"
-        android:layout_marginRight="62dp"
-        android:layout_marginEnd="62dp"
         android:layout_above="@+id/heroTwoDescription"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignLeft="@+id/heroTwoImage"
+        android:layout_alignStart="@+id/heroTwoImage" />
 
     <ImageView
         app:srcCompat="@drawable/dethwarz2"
@@ -57,8 +55,7 @@
         android:layout_height="200dp"
         android:layout_width="200dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/heroTwoName"
-        android:layout_alignStart="@+id/heroTwoName" />
+        android:layout_alignParentRight="true"/>
 
     <ImageView
         app:srcCompat="@drawable/dethwarz2"

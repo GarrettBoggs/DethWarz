@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.CoverActivity" />
+        <activity android:name=".ui.CoverActivity" android:configChanges="orientation|screenSize" />
         <activity android:name=".ui.StatsActivity" />
         <activity android:name=".ui.ContactActivity" />
         <activity android:name=".ui.HistoryActivity" />

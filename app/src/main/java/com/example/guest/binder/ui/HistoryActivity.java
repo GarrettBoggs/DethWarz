@@ -30,7 +30,6 @@ import butterknife.ButterKnife;
     public class HistoryActivity extends AppCompatActivity {
         private DatabaseReference mCharacterReference;
         private FirebaseRecyclerAdapter mFirebaseAdapter;
-        private ChildEventListener mChildEventListener;
 
         @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
