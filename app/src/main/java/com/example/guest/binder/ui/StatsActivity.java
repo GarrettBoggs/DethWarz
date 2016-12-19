@@ -1,13 +1,16 @@
 package com.example.guest.binder.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guest.binder.R;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +28,9 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.winnerLosses) TextView mWinnerLosses;
     @Bind(R.id.winnerWinPercent) TextView mWinnerWinPercent;
     @Bind(R.id.loserWinPercent) TextView mLoserWinPercent;
+    @Bind(R.id.winnerImage) ImageView mWinnerImage;
+    @Bind(R.id.loserImage) ImageView mLoserImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +38,16 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_stats);
         ButterKnife.bind(this);
 
+        Context mContext = this.getBaseContext();
+
         Intent intent = getIntent();
         String winner = intent.getStringExtra("winner");
         String loser = intent.getStringExtra("loser");
+        String winnerImage = intent.getStringExtra("winnerImage");
+        String loserImage = intent.getStringExtra("loserImage");
+
+        Picasso.with(mContext).load(winnerImage).into(mWinnerImage);
+        Picasso.with(mContext).load(loserImage).into(mLoserImage);
 
         mWinnerText.setText(winner);
         mLoserText.setText(loser);

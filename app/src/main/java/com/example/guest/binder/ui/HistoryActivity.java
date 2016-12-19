@@ -41,9 +41,6 @@ import butterknife.ButterKnife;
             setContentView(R.layout.activity_character);
             ButterKnife.bind(this);
 
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = user.getUid();
-
             mCharacterReference = FirebaseDatabase.getInstance().getReference("allCharacters");
 
             mCharacterReference.addChildEventListener(new ChildEventListener() {

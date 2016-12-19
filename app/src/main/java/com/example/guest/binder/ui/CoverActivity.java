@@ -82,8 +82,6 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
     protected void onCreate(Bundle savedInstanceState) {
         mContext = getBaseContext();
 
-        final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
-
         int guessSize = characterNames.size() - 1;
         int guess = rn.nextInt(guessSize);
         int guess2;
@@ -211,6 +209,7 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                                float velocityY) {
 
             final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             performAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
@@ -231,6 +230,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                     intent.putExtra("loserLosses", mCharacterTwo.getStringLosses());
                     intent.putExtra("loserWinPercent", mCharacterTwo.calculateWin());
                     intent.putExtra("loser", mCharacterTwo.getName());
+                    intent.putExtra("winnerImage", mCharacterOne.getPicture());
+                    intent.putExtra("loserImage", mCharacterTwo.getPicture());
 
                     mWinsReference.child("wins").setValue(mCharacterOne.getWins());
                     mWinsReferenceTwo.child("losses").setValue(mCharacterTwo.getLosses());
@@ -238,6 +239,7 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                     mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin());
 
                     startActivity(intent);
+                    finish();
 
                 }
 
@@ -272,7 +274,11 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                     intent.putExtra("loser", mCharacterOne.getName());
                     intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
                     intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
+                    intent.putExtra("winnerImage", mCharacterTwo.getPicture());
+                    intent.putExtra("loserImage", mCharacterOne.getPicture());
+
                     startActivity(intent);
+                    finish();
 
                 }
 

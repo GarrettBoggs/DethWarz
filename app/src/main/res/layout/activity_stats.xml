@@ -181,17 +181,6 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Defeats"
-        android:id="@+id/textView5"
-        android:textColor="@android:color/holo_red_dark"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/loserWinRate"
-        android:layout_alignStart="@+id/loserWinRate" />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -199,9 +188,57 @@
         android:id="@+id/loserText"
         android:textSize="25dp"
         android:layout_marginTop="15dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/loserWinRate"
+        android:layout_alignStart="@+id/loserWinRate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Loser"
+        android:id="@+id/textView4"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="30dp"
+        android:layout_above="@+id/textView11"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Winner"
+        android:id="@+id/textView5"
+        android:layout_alignBottom="@+id/winnerText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/winnerImage"
+        android:layout_alignTop="@+id/textView12"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/dethwarz2"
+        android:layout_alignBottom="@+id/loserWinRate"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loserImage"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/dethwarz2"
+        android:layout_alignBottom="@+id/winnerWinRate"
+        android:layout_alignRight="@+id/winnerImage"
+        android:layout_alignEnd="@+id/winnerImage" />
 
 
 </RelativeLayout>

@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 
 public class ContactActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.phoneButton) Button mPhoneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +21,11 @@ public class ContactActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_contact);
         ButterKnife.bind(this);
 
-        mPhoneButton.setOnClickListener(this);
     }
 
     @Override()
         public void onClick(View v){
-            if(v == mPhoneButton){
-                Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
-                        Uri.parse("tel: 304-550-9798"));
-                startActivity(phoneIntent);
-            }
+
         }
 
 }
