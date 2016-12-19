@@ -41,10 +41,10 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
         mWinnerWins.setText(intent.getStringExtra("winnerWins"));
         mWinnerLosses.setText(intent.getStringExtra("winnerLosses"));
-        mWinnerWinPercent.setText(intent.getStringExtra("winnerWinPercent"));
+        mWinnerWinPercent.setText(intent.getStringExtra("winnerWinPercent") + "%");
         mLoserWins.setText(intent.getStringExtra("loserWins"));
         mLoserLosses.setText(intent.getStringExtra("loserLosses"));
-        mLoserWinPercent.setText(intent.getStringExtra("loserWinPercent"));
+        mLoserWinPercent.setText(intent.getStringExtra("loserWinPercent") + "%");
 
         mNextButton.setOnClickListener(this);
         mContactClick.setOnClickListener(this);

@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.example.guest.binder.Constants;
 import com.example.guest.binder.adapters.CharacterListAdapter;
 import com.example.guest.binder.R;
-import com.example.guest.binder.services.BombService;
 import com.example.guest.binder.models.Character;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -235,8 +234,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
 
                     mWinsReference.child("wins").setValue(mCharacterOne.getWins());
                     mWinsReferenceTwo.child("losses").setValue(mCharacterTwo.getLosses());
-                    mWinsReference.child("winrate").setValue(mCharacterOne.calculateWin() + "%");
-                    mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin() + "%");
+                    mWinsReference.child("winrate").setValue(mCharacterOne.calculateWin());
+                    mWinsReferenceTwo.child("winrate").setValue(mCharacterTwo.calculateWin());
 
                     startActivity(intent);
 
@@ -271,8 +270,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                     intent.putExtra("loserWins", mCharacterOne.getStringWins());
                     intent.putExtra("loserLosses", mCharacterOne.getStringLosses());
                     intent.putExtra("loser", mCharacterOne.getName());
-                    intent.putExtra("loserWinPercent", mCharacterOne.calculateWin() + "%");
-                    intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin() + "%");
+                    intent.putExtra("loserWinPercent", mCharacterOne.calculateWin());
+                    intent.putExtra("winnerWinPercent", mCharacterTwo.calculateWin());
                     startActivity(intent);
 
                 }
