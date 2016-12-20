@@ -55,7 +55,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
-    public List<String> characterNames = Arrays.asList( "Shrek", "King Arthur", "Lancelot", "Goomba", "Hermione", "Dora", "Popeye" , "Rachet and Clank" , "Donkey Kong" , "Cookie Monster" , "Creeper", "Walter White", "Sora", "Ron Weasley", "Ezio Auditore", "Beethoven", "Godzilla" , "Commander Shepard", "Charizard", "Meat Boy" , "Wolverine", "The Joker","Sans", "Magikarp", "Kirby" , "Captain Falcon" , "The Terminator", "Pac Man", "Ronda Rousey", "Stormtrooper" , "Jar Jar" ,"Koopa","Bowser","Eugene Krabs","Elsa","Batman","Santa Claus", "Harry Potter", "Kirby", "Dory", "Michelangelo" ,"Goku" ,"Seabiscuit" ,"Al Capone", "John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "Han Solo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
+    public List<String> characterNames = Arrays.asList( "Droid", "Master Chief", "Gary", "Thor" , "Iron Man" , "Captain America", "Blue Knight" , "Smaug" , "Shadow", "Simon Belmont", "Dwight Schrute",  "Krillin", "Knuckles" , "Rick Roll", "John Cena", "Boba fett" , "Aang", "Robin", "Ratchet and Clank" , "Wario", "Toothless", "Samus", "Joel", "Geralt" , "Manny Pacquio" , "Muhammed Ali", "Turtle" , "Leonardo Da Vinci", "Slash", "Seto Kaiba" , "Chun-li", "Zezima" , "Ryu" , "T-Rex" , "Luigi" , "Joan de Arc", "Shrek", "Deadpool", "Jak and Daxter", "Shrek", "King Arthur", "Lancelot", "Goomba", "Hermione", "Dora", "Popeye" , "Donkey Kong" , "Cookie Monster" , "Creeper", "Walter White", "Sora", "Ron Weasley", "Ezio Auditore", "Beethoven", "Godzilla" , "Commander Shepard", "Charizard", "Meat Boy" , "Wolverine", "The Joker","Sans", "Magikarp", "Kirby" , "Captain Falcon" , "The Terminator", "Pac Man", "Ronda Rousey", "Stormtrooper" , "Jar Jar" ,"Koopa","Bowser","Eugene Krabs","Elsa","Batman","Santa Claus", "Harry Potter", "Kirby", "Dory", "Michelangelo" ,"Goku" ,"Seabiscuit" ,"Al Capone", "John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "Han Solo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall", "Prince Zuko") ;
 
     Animation performAnimation, LoseAnimation, rightStrong, leftStrong;
 
@@ -78,7 +78,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             guess2 = rn.nextInt(guessSize);
         } while (guess == guess2);
 
-        Log.d("Rar1" , "Which character1 is messing me up!!" + characterNames.get(guess));
+        Log.d("Rar2" , "Which character2 is messing me up!!" + characterNames.get(guess));
 
         mWinsReferenceTwo = FirebaseDatabase
                 .getInstance()
@@ -252,13 +252,14 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
             });
 
 
-            if(v == mCharacterTwoImage) {
+            if(v == mCharacterTwoImage && !dead) {
+                dead = true;
                 mCharacterOneImage.startAnimation(leftStrong);
                 mCharacterTwoImage.startAnimation(LoseAnimation);
             }
 
-            if(v == mCharacterOneImage){
-
+            if(v == mCharacterOneImage && !dead){
+                    dead = true;
                     mCharacterOneImage.startAnimation(performAnimation);
                     mCharacterTwoImage.startAnimation(rightStrong);
                 }

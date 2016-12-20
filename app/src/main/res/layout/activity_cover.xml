@@ -12,20 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="WHO WOULD WIN IN A DETHBATTLE?"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="heroOneName"
         android:id="@+id/heroOneName"
-        android:layout_below="@+id/heroOneImage"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/heroTwoDescription"
+        android:layout_toStartOf="@+id/heroTwoName"
+        android:layout_below="@+id/heroOneImage" />
 
     <TextView
         android:text="battleInfoOne"
@@ -67,9 +60,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView6"
         android:layout_marginTop="34dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,11 +85,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/heroTwoImage"
         android:src="@drawable/dethwarz2"
-        android:layout_toRightOf="@+id/textView10"
-        android:layout_below="@+id/textView13"
         android:layout_alignBottom="@+id/heroOneImage"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_toRightOf="@+id/heroOneImage"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,6 +100,14 @@
         android:layout_below="@+id/heroTwoName"
         android:layout_alignLeft="@+id/heroTwoName"
         android:layout_alignStart="@+id/heroTwoName" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/dethwarz2"
+        android:layout_above="@+id/textView10"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
