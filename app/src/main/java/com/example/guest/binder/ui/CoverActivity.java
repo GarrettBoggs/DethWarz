@@ -1,33 +1,23 @@
 package com.example.guest.binder.ui;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Scroller;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.guest.binder.Constants;
-import com.example.guest.binder.adapters.CharacterListAdapter;
+import android.widget.ImageView;
+
+import android.widget.TextView;
+
+
 import com.example.guest.binder.R;
 import com.example.guest.binder.models.Character;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,24 +25,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
-public class CoverActivity extends AppCompatActivity implements Animation.AnimationListener {
+public class CoverActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GestureDetectorCompat mDetector;
 
@@ -75,9 +55,9 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
     public Character mCharacterOne;
     public Character mCharacterTwo;
 
-    public List<String> characterNames = Arrays.asList("Dory", "Michelangelo" ,"Goku" ,"Seabiscuit" ,"Al Capone", "John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "HanSolo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
+    public List<String> characterNames = Arrays.asList( "Shrek", "King Arthur", "Lancelot", "Goomba", "Hermione", "Dora", "Popeye" , "Rachet and Clank" , "Donkey Kong" , "Cookie Monster" , "Creeper", "Walter White", "Sora", "Ron Weasley", "Ezio Auditore", "Beethoven", "Godzilla" , "Commander Shepard", "Charizard", "Meat Boy" , "Wolverine", "The Joker","Sans", "Magikarp", "Kirby" , "Captain Falcon" , "The Terminator", "Pac Man", "Ronda Rousey", "Stormtrooper" , "Jar Jar" ,"Koopa","Bowser","Eugene Krabs","Elsa","Batman","Santa Claus", "Harry Potter", "Kirby", "Dory", "Michelangelo" ,"Goku" ,"Seabiscuit" ,"Al Capone", "John Wayne", "Usain Bolt", "Thrall", "Steven Hawkings", "Albert Einstein", "Abe Lincoln", "Ash Ketchum", "Banjo Kazooie", "Big Bird", "Bigfoot", "Bill Clinton", "Boo", "Bob Ross", "Britney Spears", "Bugs Bunny", "Chuck Norris", "Cloud", "Chewbacca", "Companion Cube", "Darth Vader", "Dracula", "Dumbledore", "Eragon", "Ernest Hemmingway", "Fred Flintstone", "Frodo", "Gandalf", "Han Solo", "Harley Quinn", "James Bond", "Link", "Luke Skywalker", "Mario", "Megaman", "Mr Mime", "Mr T", "Pikachu", "Rick Grimes", "Robin Hood", "Sonic", "Spiderman", "Spongebob", "Snoopy", "Snow White" ,"Superman", "The Flash","The Hulk", "Thrall","Tiger Woods", "Tigger", "Tracer", "Vegeta", "Wonder Woman", "Yoda", "Yoshi", "Zelda", "Zeus", "Naruto", "Beast Boy", "Conor Mcgregor", "Murloc" , "Thrall") ;
 
-    Animation performAnimation, LoseAnimation;
+    Animation performAnimation, LoseAnimation, rightStrong, leftStrong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +65,7 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
 
         int guessSize = characterNames.size() - 1;
         int guess = rn.nextInt(guessSize);
+        Log.d("Rar1" , "Which character1 is messing me up!!" + characterNames.get(guess));
         int guess2;
 
         mWinsReference = FirebaseDatabase
@@ -96,6 +77,8 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
         do{
             guess2 = rn.nextInt(guessSize);
         } while (guess == guess2);
+
+        Log.d("Rar1" , "Which character1 is messing me up!!" + characterNames.get(guess));
 
         mWinsReferenceTwo = FirebaseDatabase
                 .getInstance()
@@ -166,48 +149,27 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
         LoseAnimation = AnimationUtils.loadAnimation(this, R.anim.move_left);
         LoseAnimation.setRepeatCount(1);
 
+        leftStrong = AnimationUtils.loadAnimation(this, R.anim.move_left_strong);
+        leftStrong.setRepeatCount(1);
+
+        rightStrong = AnimationUtils.loadAnimation(this, R.anim.move_right_strong);
+        rightStrong.setRepeatCount(1);
+
         LoseAnimation.setFillAfter(true);
+        leftStrong.setFillAfter(true);
+        rightStrong.setFillAfter(true);
         performAnimation.setFillAfter(true);
 
-        mDetector = new GestureDetectorCompat(this, new MyGestureListener());
-    }
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-
+        mCharacterOneImage.setOnClickListener(this);
+        mCharacterTwoImage.setOnClickListener(this);
     }
 
     private static final int SWIPE_MIN_DISTANCE = 50;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        this.mDetector.onTouchEvent(event);
-
-        return super.onTouchEvent(event);
-    }
-
-    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
-        public boolean onDown(MotionEvent event) {
-            Log.d("OnDown", "This work?");
-            return true;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                               float velocityY) {
+        public void onClick(View v){ {
 
             final Intent intent = new Intent(CoverActivity.this, StatsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -289,30 +251,19 @@ public class CoverActivity extends AppCompatActivity implements Animation.Animat
                 }
             });
 
-            final int SWIPE_MIN_DISTANCE = 60;
-            final int SWIPE_MAX_OFF_PATH = 250;
-            final int SWIPE_THRESHOLD_VELOCITY = 50;
 
-            try {
-                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-                    return false;
-                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
-                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    Log.d("FLING", "This flung!");
-                    mCharacterOneImage.startAnimation(LoseAnimation);
-                    mCharacterTwoImage.startAnimation(LoseAnimation);
+            if(v == mCharacterTwoImage) {
+                mCharacterOneImage.startAnimation(leftStrong);
+                mCharacterTwoImage.startAnimation(LoseAnimation);
+            }
 
-                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
-                        && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+            if(v == mCharacterOneImage){
+
                     mCharacterOneImage.startAnimation(performAnimation);
-                    mCharacterTwoImage.startAnimation(performAnimation);
+                    mCharacterTwoImage.startAnimation(rightStrong);
                 }
 
 
-            } catch (Exception e) {
-
-            }
-            return super.onFling(e1, e2, velocityX, velocityY);
         }
 
     }

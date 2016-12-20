@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v == mLoginButton) {
 
             startActivity(intent);
-
+            Toast.makeText(MainActivity.this, "Just tap to vote!", Toast.LENGTH_LONG).show();
         }
     }
 
