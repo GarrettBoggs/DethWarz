@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="heroOneName"
         android:id="@+id/heroOneName"
-        android:layout_below="@+id/heroOneImage"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -27,8 +27,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:padding="5dp"
-        android:layout_toStartOf="@+id/heroTwoImage"
-        android:layout_toLeftOf="@+id/heroTwoImage" />
+        android:layout_toStartOf="@+id/textView10"
+        android:layout_toLeftOf="@+id/textView10" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,9 +46,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/dethwarz2"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/textView10"
-        android:layout_toStartOf="@+id/textView10" />
+        android:layout_above="@+id/heroOneName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView3"
+        android:layout_toLeftOf="@+id/heroTwoName"
+        android:layout_toStartOf="@+id/heroTwoName" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,12 +65,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="V.S."
         android:id="@+id/textView10"
-        android:layout_alignRight="@+id/textView6"
-        android:layout_alignEnd="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:layout_marginTop="131dp"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,9 +84,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/heroTwoImage"
         android:src="@drawable/dethwarz2"
-        android:layout_alignTop="@+id/heroOneImage"
-        android:layout_toRightOf="@+id/heroOneImage"
-        android:layout_toEndOf="@+id/heroOneImage" />
+        android:layout_above="@+id/heroTwoName"
+        android:layout_toEndOf="@+id/textView10"
+        android:layout_below="@+id/imageView3"
+        android:layout_toRightOf="@+id/textView10" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,10 +97,15 @@
         android:id="@+id/heroTwoDescription"
         android:layout_below="@+id/heroTwoName"
         android:layout_alignLeft="@+id/heroTwoName"
-        android:layout_alignStart="@+id/heroTwoName"
-        android:layout_alignBottom="@+id/heroOneDescription"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/heroTwoName" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/dethwarz2"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/textView10" />
 
 
 </RelativeLayout>
