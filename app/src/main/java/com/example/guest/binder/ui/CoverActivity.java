@@ -72,14 +72,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mCharacterOne = Parcels.unwrap(intent.getParcelableExtra("charOne"));
         mCharacterTwo = Parcels.unwrap(intent.getParcelableExtra("charTwo"));
 
-        mHeroOneName.setText(mCharacterOne.getName());
-        mHeroOneDescription.setText(mCharacterOne.getDescription());
-        Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterOneImage);
-
-        mHeroTwoName.setText(mCharacterTwo.getName());
-        mHeroTwoDescription.setText(mCharacterTwo.getDescription());
-        Picasso.with(mContext).load(mCharacterTwo.getPicture()).into(mCharacterTwoImage);
-
         performAnimation = AnimationUtils.loadAnimation(this, R.anim.move_one);
         performAnimation.setRepeatCount(1);
 
@@ -100,6 +92,20 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mCharacterOneImage.setOnClickListener(this);
         mCharacterTwoImage.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mHeroOneName.setText(mCharacterOne.getName());
+        mHeroOneDescription.setText(mCharacterOne.getDescription());
+        Picasso.with(mContext).load(mCharacterOne.getPicture()).into(mCharacterOneImage);
+
+        mHeroTwoName.setText(mCharacterTwo.getName());
+        mHeroTwoDescription.setText(mCharacterTwo.getDescription());
+        Picasso.with(mContext).load(mCharacterTwo.getPicture()).into(mCharacterTwoImage);
+
         mWinsReference = FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -111,7 +117,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .getReference()
                 .child("allCharacters")
                 .child(mCharacterTwo.getName());
-
     }
 
 
