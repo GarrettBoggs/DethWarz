@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             mContext = getBaseContext();
 
-            int guessSize = characterNames.size() - 1;
+            int guessSize = characterNames.size();
             int guess = rn.nextInt(guessSize);
             Log.d("Rar1" , "Which character1 is messing me up!!" + characterNames.get(guess));
-            int guess2;
+            int guess2 = guess;
 
             mWinsReference = FirebaseDatabase
                     .getInstance()
@@ -66,11 +66,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .child("allCharacters")
                     .child(characterNames.get(guess));
 
-            do{
+            while(guess == guess2) {
                 guess2 = rn.nextInt(guessSize);
-            } while (guess == guess2);
+            }
 
-            Log.d("Rar2" , "Which character2 is messing me up!!" + characterNames.get(guess));
+            Log.d("Rar2" , "Which character2 is messing me up!!" + characterNames.get(guess2));
 
             mWinsReferenceTwo = FirebaseDatabase
                     .getInstance()

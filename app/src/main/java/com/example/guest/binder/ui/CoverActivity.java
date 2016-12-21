@@ -95,8 +95,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         mHeroOneName.setText(mCharacterOne.getName());
         mHeroOneDescription.setText(mCharacterOne.getDescription());
@@ -200,8 +200,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                     finish();
 
                 }
-
-
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {
