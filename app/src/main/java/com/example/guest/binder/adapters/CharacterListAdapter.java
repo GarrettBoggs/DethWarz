@@ -51,6 +51,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         @Bind(R.id.characterNameTextView) TextView mCharacterTextView;
         @Bind(R.id.descriptionTextView) TextView mCharacterDescTextView;
         @Bind(R.id.characterImageView) ImageView mCharacterImageView;
+        @Bind(R.id.winPercent) TextView mCharacterWinPercent;
 
         private Context mContext;
 
@@ -64,6 +65,8 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         public void bindCharacter(Character character) {
             mCharacterTextView.setText(character.getName());
             mCharacterDescTextView.setText(character.getDescription());
+            mCharacterWinPercent.setText(character.calculateWin() + "%");
+
             Picasso.with(mContext).load(character.getPicture()).into(mCharacterImageView);
         }
     }

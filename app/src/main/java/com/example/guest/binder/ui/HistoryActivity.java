@@ -19,6 +19,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,10 +31,15 @@ import butterknife.ButterKnife;
  */
 
     public class HistoryActivity extends AppCompatActivity {
+
         private DatabaseReference mCharacterReference;
         private FirebaseRecyclerAdapter mFirebaseAdapter;
 
+        private Query thing;
+
         @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+
+        private ArrayList<Character> mCharacters = new ArrayList<>();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +48,9 @@ import butterknife.ButterKnife;
             setContentView(R.layout.activity_character);
             ButterKnife.bind(this);
 
-            mCharacterReference = FirebaseDatabase.getInstance().getReference("allCharacters");
+            thing = FirebaseDatabase.getInstance().getReference("allCharacters").orderByChild("winrate");
 
-            mCharacterReference.addChildEventListener(new ChildEventListener() {
+            thing.addChildEventListener(new ChildEventListener() {
 
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -77,7 +85,7 @@ import butterknife.ButterKnife;
         private void setUpFirebaseAdapter() {
             mFirebaseAdapter = new FirebaseRecyclerAdapter<Character, FirebaseCharacterViewHolder>
                     (Character.class, R.layout.character_list_item, FirebaseCharacterViewHolder.class,
-                            mCharacterReference.orderByChild("winrate")) {
+                            thing) {
 
                 @Override
                 protected void populateViewHolder(FirebaseCharacterViewHolder viewHolder,
