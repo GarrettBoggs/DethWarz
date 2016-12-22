@@ -2,6 +2,7 @@ package com.example.guest.binder.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -261,6 +262,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 dead = true;
                 mCharacterOneImage.startAnimation(leftStrong);
                 mCharacterTwoImage.startAnimation(LoseAnimation);
+//                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.mariosound);
+//                mp.start();
             }
 
             if(v == mCharacterOneImage && !dead){
