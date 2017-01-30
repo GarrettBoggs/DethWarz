@@ -18,7 +18,7 @@ public class Character {
     public long wins = 0;
     public long losses = 0;
     private String pushId;
-    private String sounds;
+    private int sounds;
 
     DecimalFormat df = new DecimalFormat("#");
     DecimalFormat df2 = new DecimalFormat("0.00");
@@ -29,7 +29,7 @@ public class Character {
         this.description = description;
     }
 
-    public Character(String name, String picture, String description, long wins, long losses , String sounds){
+    public Character(String name, String picture, String description, long wins, long losses , int sounds){
         this.name = name;
         this.picture = picture;
         this.description = description;
@@ -67,7 +67,7 @@ public class Character {
 
     public long getLosses() { return losses; }
 
-    public String getSound () {
+    public int getSound () {
         return sounds;
     }
 
