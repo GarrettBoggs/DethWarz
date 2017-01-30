@@ -90,7 +90,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .getInstance()
                 .getReference()
                 .child("allCharacters")
-                .child(characterNames.get(guess));
+                .child("Companion Cube");
 
         while (guess == guess2){
             guess2 = rn.nextInt(guessSize);
@@ -102,7 +102,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .getInstance()
                 .getReference()
                 .child("allCharacters")
-                .child(characterNames.get(guess2));
+                .child("Mario");
 
         mWinsReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -111,7 +111,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 String name = (String) dataSnapshot.child("name").getValue();
                 String desc = (String)  dataSnapshot.child("description").getValue();
                 String picture = (String)  dataSnapshot.child("picture").getValue();
-                String sounds = (String)  dataSnapshot.child("sounds").getValue();
+                int sounds = Integer.parseInt(dataSnapshot.child("sounds").getValue().toString());
                 long wins = (long)  dataSnapshot.child("wins").getValue();
                 long losses = (long)  dataSnapshot.child("losses").getValue();
 
@@ -140,7 +140,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 String name = (String) dataSnapshot.child("name").getValue();
                 String desc = (String)  dataSnapshot.child("description").getValue();
                 String picture = (String)  dataSnapshot.child("picture").getValue();
-                String sounds = (String)  dataSnapshot.child("sounds").getValue();
+                int sounds = Integer.parseInt(dataSnapshot.child("sounds").getValue().toString());
                 long wins = (long)  dataSnapshot.child("wins").getValue();
                 long losses = (long)  dataSnapshot.child("losses").getValue();
 
@@ -287,9 +287,11 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 mCharacterOneImage.startAnimation(leftStrong);
                 mCharacterTwoImage.startAnimation(LoseAnimation);
 
-                if(mCharacterTwo.getSound() != null){
-                    RingtoneManager.getRingtone(this, Uri.parse( mCharacterTwo.getSound()) ).play();
-                }
+
+                   MediaPlayer mp = MediaPlayer.create(this, mCharacterTwo.getSound());
+                   Log.d("What ??" , "?? int?" + R.raw.mario);
+                   mp.start();
+
 
             }
 
@@ -298,10 +300,9 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                     mCharacterOneImage.startAnimation(performAnimation);
                     mCharacterTwoImage.startAnimation(rightStrong);
 
-                if(mCharacterOne.getSound() != null){
-                    RingtoneManager.getRingtone(this, Uri.parse( mCharacterOne.getSound()) ).play();
-                }
-
+                MediaPlayer mp = MediaPlayer.create(this, mCharacterOne.getSound());
+                Log.d("What ??" , "?? int?" + R.raw.mario);
+                mp.start();
 
             }
 
