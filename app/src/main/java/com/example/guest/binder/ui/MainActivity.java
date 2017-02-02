@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Log.d("What ??" , "beethoven" + R.raw.companioncubesound);
-        Log.d("What ??" , "mario" + R.raw.mario);
+        Log.d("What ??" , "aang" + R.raw.setokaibasound);
+        Log.d("What ??" , "lincoln" + R.raw.seabiscuitsound);
 
         mLoginButton.setOnClickListener(this);
         

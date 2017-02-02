@@ -90,7 +90,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .getInstance()
                 .getReference()
                 .child("allCharacters")
-                .child("Companion Cube");
+                .child(characterNames.get(guess));
 
         while (guess == guess2){
             guess2 = rn.nextInt(guessSize);
@@ -102,7 +102,7 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 .getInstance()
                 .getReference()
                 .child("allCharacters")
-                .child("Mario");
+                .child(characterNames.get(guess2));
 
         mWinsReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -185,7 +185,6 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
         mCharacterOneImage.setOnClickListener(this);
         mCharacterTwoImage.setOnClickListener(this);
 
-        MediaPlayer mMediaPlayer = new MediaPlayer();
 
 //        try {
 //            getAudioTwo();
@@ -288,9 +287,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                 mCharacterTwoImage.startAnimation(LoseAnimation);
 
 
-                   MediaPlayer mp = MediaPlayer.create(this, mCharacterTwo.getSound());
-                   Log.d("What ??" , "?? int?" + R.raw.mario);
-                   mp.start();
+                   MediaPlayer mp2 = MediaPlayer.create(this, mCharacterTwo.getSound());
+                   mp2.start();
 
 
             }
@@ -300,9 +298,8 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
                     mCharacterOneImage.startAnimation(performAnimation);
                     mCharacterTwoImage.startAnimation(rightStrong);
 
-                MediaPlayer mp = MediaPlayer.create(this, mCharacterOne.getSound());
-                Log.d("What ??" , "?? int?" + R.raw.mario);
-                mp.start();
+                MediaPlayer mp1 = MediaPlayer.create(this, mCharacterOne.getSound());
+                mp1.start();
 
             }
 
@@ -311,27 +308,5 @@ public class CoverActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void uploadAudio(){
-
-    }
-
-    private void getAudioTwo() throws IOException {
-        final MediaPlayer mMediaPlayer;
-
-        String url = "https://firebasestorage.googleapis.com/v0/b/dethbattle-44a6b.appspot.com/o/Audio%2Fyoshisound.wav?alt=media&token=d93ea1d9-988f-454f-bf89-c0358907d1e5";
-        Log.v("the url looks like: ", url);
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setDataSource(url);
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.prepare(); // might take long! (for buffering, etc)
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMediaPlayer.start();
-            }
-        }, 1000);
-
-    }
 
 }
