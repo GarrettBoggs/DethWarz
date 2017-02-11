@@ -1,5 +1,5 @@
-# DethBattle
-App that allows the user to pick the victor of a DethBattle!
+# DethWarz
+App that allows the user to pick the victor of a DethWar!
 
 Now we may truly know who would win in a fight between Pikuchu and Batman!
 
